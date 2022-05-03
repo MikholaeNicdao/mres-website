@@ -1,21 +1,22 @@
 <template>
   <div class="posts-container">
-      <nuxt-link to="/announcements/add" class="bordered button-color" v-if="adminLogged"> Create Post </nuxt-link>
+      <nuxt-link to="/announcements/add" class="bordered button-color"> Create Post </nuxt-link>
       <Announcement v-for="announcement in announcements" :key="announcement.id" :announcement="announcement" />
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'PostPage',
+  name: 'AnnouncementsPage',
+  middleware: ['setAnnouncements'],
   computed: {
     announcements () {
       return this.$store.state.announcement.announcements
-    },
-
-    adminLogged(){
-        return this.$store.state.login.adminLogged
+    }
+  },
+  methods:{
+    setAnnouncements(){
+      this.$store.dispatch('announcement/fetchAnnouncements')
     }
   }
 }

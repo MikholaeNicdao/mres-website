@@ -1,9 +1,9 @@
 <template>
   <div>
     <img class="sliderImage" src="~/assets/images/schoolSlider.png" alt="">
-      <div class="schoolAnnouncements">
-        <AnnouncementList />
-        <SideBar />
+    <div class="schoolAnnouncements">
+      <AnnouncementList />
+      <SideBar />
     </div>       
     <section class="activitySection">
         <h4>School Activities</h4>
@@ -15,6 +15,7 @@
 
 export default {
   name: 'IndexPage',
+  middleware: ['setAnnouncements'],
 }
 </script>
 

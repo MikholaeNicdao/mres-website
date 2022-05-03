@@ -3,12 +3,12 @@
         <div class="annoucements">
             <h4>Annoucements</h4>
             <div class="announcement" v-for="announcement in announcements" :key="announcement.id">
-                <img src="~/assets/images/student.jpeg" alt="">
+                <img :src="`data:image/jpg; base64, ${announcement.coverPhoto}`">
                 <div class="announcementContainer">
                     <div>
                         <h5> {{ announcement.title }}</h5>
-                        <p>{{ announcement.date }}</p>
-                        <!-- <p class="announcementSnippet"> {{ announcement.body }} </p> -->
+                        <!-- <p>{{ announcement.date }}</p> -->
+                        <p class="announcementSnippet"> {{ announcement.description }} </p>
                     </div>
                     <nuxt-link :to="'/announcements/' + announcement.id">Read more</nuxt-link>
                 </div>
@@ -21,6 +21,7 @@
 <script>
 export default {
     name: 'AnnouncementPage',
+    middleware: ['setAnnouncements'],
     computed: {
         announcements () {
             return this.$store.state.announcement.announcements
@@ -46,7 +47,9 @@ export default {
   padding-bottom: 20px;
 }
 .announcement img {
+  height: 190px;
   width: 18em;
+  object-fit: cover;
 }
 .announcement {
   display: flex;
