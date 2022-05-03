@@ -13,9 +13,9 @@ export const mutations = {
 export const actions = {
     async fetchActivities({ commit }){
         try {
-            let res = await axios.get("http://localhost:4000/MRES/SchoolActivities")
+            let res = await axios.get("http://localhost:4000/api/v1/SchoolActivities")
 
-            commit('setActivities', res.data)
+            commit('setActivities', res.data.description)
 
         }catch (error) {
             console.log(error)
@@ -23,7 +23,7 @@ export const actions = {
     },
     async addActivity({dispatch}, formData){
         try {
-            await axios.post("http://localhost:4000/MRES/SchoolActivities/Upload", formData)
+            await axios.post("http://localhost:4000/api/v1/SchoolActivities/Upload", formData)
 
             await dispatch('fetchActivities')
 

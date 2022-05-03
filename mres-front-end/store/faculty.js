@@ -14,9 +14,11 @@ export const mutations = {
 export const actions = {
     async fetchFaculty({ commit }){
         try {
-            let res = await axios.get("http://localhost:4000/MRES/Faculty")
+            let res = await axios.get("http://localhost:4000/api/v1/Faculty")
 
-            commit('setFaculty', res.data)
+            console.log(res)
+
+            commit('setFaculty', res.data.description)
 
         }catch (error) {
             console.log(error)
@@ -24,7 +26,7 @@ export const actions = {
     },
     async addFaculty({ dispatch }, formData){
         try {
-            await axios.post("http://localhost:4000/MRES/Faculty/AddFacultyMember", formData)
+            await axios.post("http://localhost:4000/api/v1/Faculty/AddFacultyMember", formData)
 
             await dispatch('fetchFaculty')
         }catch (error) {

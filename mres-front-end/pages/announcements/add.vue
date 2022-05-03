@@ -34,17 +34,6 @@ export default {
     return { form }
 
   },
-  computed: {
-    announcements(){
-        return this.$store.state.announcement.announcements
-    },
-    announcement(){
-        return this.$store.state.announcement.announcement
-    },
-    adminLogged(){
-        return this.$store.state.login.adminLogged
-    }
-  },
   methods: {
     addAnnouncements() {
       let formData = new FormData()
