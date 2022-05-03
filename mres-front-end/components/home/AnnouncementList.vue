@@ -2,7 +2,7 @@
     <section class="announcementSection">
         <div class="annoucements">
             <h4>Annoucements</h4>
-            <div class="announcement" v-for="announcement in announcements" :key="announcement.id">
+            <div class="announcement" v-for="announcement in topAnnouncements" :key="announcement.id">
                 <img :src="`data:image/jpg; base64, ${announcement.coverPhoto}`">
                 <div class="announcementContainer">
                     <div>
@@ -19,13 +19,18 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
     name: 'AnnouncementPage',
     middleware: ['setAnnouncements'],
     computed: {
         announcements () {
             return this.$store.state.announcement.announcements
-        }
+        },
+        ...mapGetters({
+          topAnnouncements: "announcement/getTopAnnouncements",
+        })
     }
 }
 </script>

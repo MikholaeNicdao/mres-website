@@ -15,7 +15,7 @@
 
 export default {
   name: 'IndexPage',
-  middleware: ['setAnnouncements'],
+  middleware: ['setAnnouncements']
 }
 </script>
 

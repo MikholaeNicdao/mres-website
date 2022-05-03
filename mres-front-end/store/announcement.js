@@ -37,8 +37,15 @@ export const actions = {
             await axios.post("http://localhost:4000/MRES/Announcements/Upload", formData)
 
             await dispatch('fetchAnnouncements')
+
         }catch (error) {
             console.log(error.message)
         }
+    }
+}
+
+export const getters = {
+    getTopAnnouncements: (state) => {
+        return state.announcements.slice(0, 3)
     }
 }

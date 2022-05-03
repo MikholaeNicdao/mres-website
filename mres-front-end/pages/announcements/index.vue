@@ -13,11 +13,6 @@ export default {
     announcements () {
       return this.$store.state.announcement.announcements
     }
-  },
-  methods:{
-    setAnnouncements(){
-      this.$store.dispatch('announcement/fetchAnnouncements')
-    }
   }
 }
 </script>
