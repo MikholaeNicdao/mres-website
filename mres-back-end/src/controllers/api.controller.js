@@ -1,11 +1,12 @@
 const apiModel = require('../models/api.model')
 
+// Get information
 exports.getSchedule = (req,res)=>{
     apiModel.getSchedule((err,data)=>{
         if(err){
-            res.send(err)
+            res.status(404).json({success: false, description: data})
         }else{
-            res.send(data)
+            res.status(200).json({success: true, description: data})
         }
     })
 }
@@ -13,9 +14,9 @@ exports.getSchedule = (req,res)=>{
 exports.getAllFaculty = (req,res)=>{
     apiModel.getAllFaculty((err,data)=>{
         if(err){
-            res.send(err)
+            res.status(404).json({success: false, description: data})
         }else{
-            res.send(data)
+            res.status(200).json({success: true, description: data})
         }
     })
 }
@@ -23,9 +24,19 @@ exports.getAllFaculty = (req,res)=>{
 exports.getAllSchoolActivities = (req,res)=>{
     apiModel.getAllSchoolActivities((err,data)=>{
         if(err){
-            res.send(err)
+            res.status(404).json({success: false, description: data})
         }else{
-            res.send(data)
+            res.status(200).json({success: true, description: data})
+        }
+    })
+}
+
+exports.getByIdSA = (req,res)=>{
+    apiModel.getByIdSA(req.params.id, (err,data)=>{
+        if(err){
+            res.status(404).json({success: false, description: data})
+        }else{
+            res.status(200).json({success: true, description: data})
         }
     })
 }
@@ -33,9 +44,19 @@ exports.getAllSchoolActivities = (req,res)=>{
 exports.getAllSchoolAnnouncements = (req,res)=>{
     apiModel.getAllAnnouncements((err,data)=>{
         if(err){
-            res.send(err)
+            res.status(404).json({success: false, description: data})
         }else{
-            res.send(data)
+            res.status(200).json({success: true, description: data})
+        }
+    })
+}
+
+exports.getByIdAnnouncements = (req,res)=>{
+    apiModel.getByIdAnnouncements((err,data)=>{
+        if(err){
+            res.status(404).json({success: false, description: data})
+        }else{
+            res.status(200).json({success: true, description: data})
         }
     })
 }
@@ -43,9 +64,9 @@ exports.getAllSchoolAnnouncements = (req,res)=>{
 exports.getAllLCP = (req,res)=>{
     apiModel.getAllLCP((err,data)=>{
         if(err){
-            res.send(err)
+            res.status(404).json({success: false, description: data})
         }else{
-            res.send(data)
+            res.status(200).json({success: true, description: data})
         }
     })
 }

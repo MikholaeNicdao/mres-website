@@ -32,8 +32,28 @@ class mresQuery{
         })
     }
 
+    static getByIdSA(id,result){
+        dbconnect.query('SELECT * FROM schoolactivities WHERE id=?', [id], (err,res)=>{
+            if(err){
+                result(null, err)
+            }else{
+                result(null, res)
+            }
+        })
+    }
+
     static getAllAnnouncements(result){
         dbconnect.query('SELECT * FROM announcements', (err,res)=>{
+            if(err){
+                result(null, err)
+            }else{
+                result(null, res)
+            }
+        })
+    }
+
+    static getByIdAnnouncements(id, result){
+        dbconnect.query('SELECT * FROM announcements WHERE id=?', [id], (err,res)=>{
             if(err){
                 result(null, err)
             }else{

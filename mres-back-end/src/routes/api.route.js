@@ -9,8 +9,10 @@ const upload = multer({storage:multer.memoryStorage()})
 // GET routers for static page
 router.get('/', apiController.getSchedule)
 router.get('/Faculty', apiController.getAllFaculty)
-router.get('/SchoolActivities', apiController.getAllSchoolActivities)
+router.get('/SchoolActivites', apiController.getAllSchoolActivities)
+router.get('/SchoolActivites/:id', apiController.getByIdSA)
 router.get('/Announcements', apiController.getAllSchoolAnnouncements)
+router.get('/Announcements/:id', apiController.getByIdAnnouncements)
 router.get('/LearningContinuityPlan', apiController.getAllLCP)
 
 // ADMIN POST routers
