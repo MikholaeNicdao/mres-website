@@ -10,7 +10,9 @@ const upload = multer({storage:multer.memoryStorage()})
 router.get('/', apiController.getSchedule)
 router.get('/Faculty', apiController.getAllFaculty)
 router.get('/SchoolActivites', apiController.getAllSchoolActivities)
+router.get('/SchoolActivites/:id', apiController.getByIdSA)
 router.get('/Announcements', apiController.getAllSchoolAnnouncements)
+router.get('/Announcements/:id', apiController.getByIdAnnouncements)
 router.get('/LearningContinuityPlan', apiController.getAllLCP)
 
 // ADMIN POST routers
