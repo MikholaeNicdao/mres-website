@@ -1,45 +1,44 @@
 import Vue from 'vue'
+import axios from 'axios'
 
 export const state = () => ({
-    announcements:
-    {
-        1: {
-            id: 1,
-            title: "Back to School yr. 2021-2022",
-            body: "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
-            date: "August 28, 2020"
-        },
-        2: {
-            id: 2,
-            title: "Back to School yr. 2021-2022 (1)",
-            body: "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
-            date: "August 28, 2020"
-        },
-        3: {
-            id: 3,
-            title: "Back to School yr. 2021-2022 (2)",
-            body: "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
-            date: "August 28, 2020"
-        },
-    },
+    announcements: [],
     announcement: { }
 })
   
 export const mutations = {
-    add(state, announcement){
-        state.announcements[announcement.id] = {
-            id: announcement.id,
-            title: announcement.title,
-            body: announcement.body
-        }
-    },
     update(state, announcement) {
         state.announcements[announcement.id] = announcement
     },
     delete(state, id){
         Vue.delete(state.announcements, id)
     },
+    setAnnouncements(state, announcements){
+        state.announcements = announcements
+    },
     setAnnouncement(state, id){
         state.announcement = state.announcements[id]
+    }
+}
+
+export const actions = {
+    async fetchAnnouncements({ commit }){
+        try {
+            let res = await axios.get("http://localhost:4000/MRES/Announcements")
+
+            commit('setAnnouncements', res.data)
+
+        }catch (error) {
+            console.log(error)
+        }
+    },
+    async addAnnouncement({ dispatch }, formData){
+        try {
+            await axios.post("http://localhost:4000/MRES/Announcements/Upload", formData)
+
+            await dispatch('fetchAnnouncements')
+        }catch (error) {
+            console.log(error.message)
+        }
     }
 }
