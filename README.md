@@ -1,1 +1,2 @@
-# mres-website
+# How to run development.
+- NPM run testes
