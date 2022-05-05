@@ -14,7 +14,9 @@
 <script>
 export default {
   name: 'FacultyPage',
-  middleware: ['setFacultyList'],
+  beforeCreate(){
+    this.$store.dispatch('faculty/fetchFaculty')
+  },
   computed: {
     facultyList(){
       return this.$store.state.faculty.facultyList
@@ -22,7 +24,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

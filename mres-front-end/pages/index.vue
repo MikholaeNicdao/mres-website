@@ -5,24 +5,28 @@
       <AnnouncementList />
       <SideBar />
     </div>       
-    <section class="activitySection">
-        <h4>School Activities</h4>
-    </section>
+    <ActivityList />
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'IndexPage',
-  middleware: ['setAnnouncements']
+  name: 'HomePage',
+  beforeCreate(){
+    this.$store.dispatch('announcement/fetchAnnouncements')
+  }
 }
 </script>
 
 <style>
 img.sliderImage {
   width: 100%;
-  filter: brightness(95%);
   display: block;
 }
+
+.schoolAnnouncements {
+  display: flex;
+}
+
 </style>

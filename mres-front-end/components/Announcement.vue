@@ -1,9 +1,12 @@
 <template>
   <div class="post">
-    <img :src="announcementCover">
+    <img class="announcementCover" :src="announcementCover">
     <h2 class="post-title">
         {{ announcement.title }}
     </h2>
+    <p class="post-body">
+        {{ announcement.description }}
+    </p>
     <nuxt-link
     :to="'announcements/' + announcement.id + '/edit'"
     class="bordered button-color"> 
@@ -12,9 +15,7 @@
     <a @click="deleteAnnouncement(announcement.id)" class="bordered button-color">
       Delete
     </a>
-    <p class="post-body">
-        {{ announcement.description }}
-    </p>
+    <hr>
   </div>
 </template>
 
@@ -38,3 +39,11 @@ export default {
   }
 }
 </script>
+
+<style>
+.announcementCover{
+    height: auto;
+    width: 250px;
+    object-fit: cover;
+}
+</style>

@@ -1,7 +1,8 @@
 <template>
-    <div>
+    <div class="body">
         <NavBar />
         <Nuxt />
+        <Footer />
     </div>
 </template>
 <style>
@@ -9,6 +10,7 @@ body{
     margin: 0;
     padding: 0;
     width: 100vw;
+    min-height: 100vh;
 }
 
 * {
@@ -19,8 +21,17 @@ body{
     box-sizing:border-box;
 }
 
-h3 {
-    color:#404040;
+footer {
+    position: sticky;
+    top: 100%;
+    display: block;
+}
+
+.body{
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  min-height: 100vh;
 }
 
 </style>

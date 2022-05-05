@@ -1,7 +1,8 @@
 export default {
+  ssr: true,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'mres_ojt',
+    title: 'Mauaque Resettlement Elementary School',
     htmlAttrs: {
       lang: 'en'
     },
@@ -50,6 +51,4 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },
-
-  ssr: true
 }

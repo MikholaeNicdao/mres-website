@@ -8,12 +8,11 @@
                     <div>
                         <h5> {{ announcement.title }}</h5>
                         <!-- <p>{{ announcement.date }}</p> -->
-                        <p class="announcementSnippet"> {{ announcement.description }} </p>
+                        <p> {{ announcement.description }} </p>
                     </div>
                     <nuxt-link :to="'/announcements/' + announcement.id">Read more</nuxt-link>
                 </div>
             </div>
-            <nuxt-link to="/announcements" class="viewAnnouncements">View All Announcements</nuxt-link>
         </div>
     </section>
 </template>
@@ -37,92 +36,65 @@ export default {
 
 <style>
 .annoucements { 
-  padding-left: 5%;
   display: block;
   background-color: #f2f2f2;
   padding-top: 3%;
+  padding-left: 5%;
   padding-right: 5%;
-  text-align: center;
-  min-height: 100vh;
+  padding-bottom: 5%;
 }
-.annoucements h4 {
-  text-align: center; 
-  font-size: 40px;
+.annoucements h4, .events h4, .activitySection h4 {
   color: #404040;
-  padding-bottom: 20px;
+  font-size: 18px;
+  padding-bottom: 25px;
 }
 .announcement img {
-  height: 190px;
-  width: 18em;
+  height: auto;
+  width: 116px;
   object-fit: cover;
 }
 .announcement {
   display: flex;
+  flex-direction: row;
+  align-items: flex-start;
   padding-top: 20px;
   padding-bottom: 20px;
   border-bottom: 1px solid silver;
   text-align: left;
 }
 .announcementContainer {
-  padding: 10px;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-content: flex-start;
 }
 .announcement h5 {
-  font-size: 32px; 
+  font-size: 22px; 
   color:#329bd6; 
-  font-weight:bold;
+  font-weight:normal;
 }
 
 .announcement p {
-  font-size:20px; 
+  font-size:14px; 
   color:gray; 
-  margin-top:10px;
 }
 
 .announcement a {
-  font-size:20px; 
-  font-weight:bold;
+  font-size: 14px; 
+  font-weight: normal;
   color:#CDC960;
+  margin-top: 20px;
 }
 .announcementSection {
   display: inline-block;
   width: 65%;
 }
-a.viewAnnouncements {
-  display: inline-block;
-  font-size: 27px;
-  font-weight: bold;
-  margin-top: 50px;
-  padding: 10px 40px;
-  border-radius: 10px;
-  background-color: #329bd6;
-  color: white;
+.announcement a:hover {
+    color: #aeaa37;
 }
-a.viewAnnouncements:hover {
-  background-color: #2278aa;
+.viewCalendar {
+  margin-top: 40px;
 }
-a.viewCalendar {
-  font-size: 22px;
-  padding-left: 30px;
-  position: absolute;
-  bottom: 44px;
-  color: #404040;
-}
-.viewItem {
-  background-color: #329bd6;
-  height: 10px;
-  width: 158px;
-  position: absolute;
-  bottom: 30px;
-  margin-left: 24px;
-}
-.schoolAnnouncements {
-  display: flex;
-}
-.announcementSnippet{
-  text-overflow: ellipsis;
-}
+
 </style>

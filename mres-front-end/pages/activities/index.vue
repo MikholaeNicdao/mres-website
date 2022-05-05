@@ -15,7 +15,9 @@
 <script>
 export default {
     name: 'ActivitiesPage',
-    middleware: ['setActivities'],
+    beforeCreate(){
+      this.$store.dispatch('activity/fetchActivities')
+    },
     computed: {
         activities () {
             return this.$store.state.activity.activities
@@ -23,7 +25,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>

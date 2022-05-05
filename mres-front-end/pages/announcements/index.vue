@@ -8,7 +8,9 @@
 <script>
 export default {
   name: 'AnnouncementsPage',
-  middleware: ['setAnnouncements'],
+  beforeCreate(){
+    this.$store.dispatch('announcement/fetchAnnouncements')
+  },
   computed: {
     announcements () {
       return this.$store.state.announcement.announcements
@@ -21,5 +23,4 @@ export default {
 .posts-container{
   margin: 0.5rem;
 }
-
 </style>
