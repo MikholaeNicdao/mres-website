@@ -5,6 +5,30 @@ const date = new Date()
 
 class mresQuery{
 
+    // Create ADMIN account
+    static createAdmin(userName, passWord, result){
+        dbconnect.query('INSERT INTO admin (id, userName,passWord) VALUES (?,?,?)', ['', userName, passWord],(err,res)=>{
+            if(err){
+                result(null, err)
+            }else{
+                result(null, res)
+            }
+        })
+    }
+
+    // Login admin verification
+    static loginAdmin(userName, result){
+        dbconnect.query('SELECT * FROM admin WHERE userName=?',[userName], (err,res)=>{
+            if(res.length === 0){
+                result(null, err)
+            }else{
+                result(null, res)
+            }
+            
+        })
+    }
+
+    // Fetching data from database
     static getSchedule(result){
         dbconnect.query('SELECT * FROM schedules', (err,res)=>{
             if(err){
@@ -75,11 +99,6 @@ class mresQuery{
         })
     }
 
-
-
-
-
-
     // Uploading file and data
     static scheduleUpload(schedule, result){
         dbconnect.query('UPDATE schedules SET schedulenote=? WHERE id > 0', [schedule], (err,res)=>{
@@ -131,12 +150,7 @@ class mresQuery{
         })
     }
 
-
-
-
-
     // Deleting DATA's
-
     static deleteSchedule(result){
         dbconnect.query('DELETE FROM schedules WHERE schedulenote != "undefined"', (err,res)=>{
             if(err){
@@ -186,10 +200,6 @@ class mresQuery{
             }
         })
     }
-
-
-
-
 
     // UPDATING DATA's
     static updateSA(image,title,description,id, result){

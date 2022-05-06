@@ -8,6 +8,10 @@ const apiController = require('../controllers/api.controller')
 // multer setup for file uploading
 const upload = multer({storage:multer.memoryStorage()})
 
+// Create Admin account
+router.post('/create/admin/account', apiController.createAdmin)
+router.post('/login/admin', apiController.loginAdmin)
+
 // GET routers for static page
 router.get('/', apiController.getSchedule)
 router.get('/Faculty', apiController.getAllFaculty)
