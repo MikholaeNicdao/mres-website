@@ -24,9 +24,9 @@ export const mutations = {
 export const actions = {
     async fetchAnnouncements({ commit }){
         try {
-            let res = await axios.get("http://localhost:4000/MRES/Announcements")
+            let res = await axios.get("http://localhost:4000/api/v1/Announcements")
 
-            commit('setAnnouncements', res.data)
+            commit('setAnnouncements', res.data.description)
 
         }catch (error) {
             console.log(error)
@@ -34,11 +34,18 @@ export const actions = {
     },
     async addAnnouncement({ dispatch }, formData){
         try {
-            await axios.post("http://localhost:4000/MRES/Announcements/Upload", formData)
+            await axios.post("http://localhost:4000/api/v1/Announcements/Upload", formData)
 
             await dispatch('fetchAnnouncements')
+
         }catch (error) {
             console.log(error.message)
         }
+    }
+}
+
+export const getters = {
+    getTopAnnouncements: (state) => {
+        return state.announcements.slice(0, 3)
     }
 }

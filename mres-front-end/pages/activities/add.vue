@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="addAnnouncements()" class="flex-column">
+  <form @submit.prevent="addActivity()" class="flex-column">
       <label for="title"> Title: </label>
       <input type="text" name="title" v-model="form.title" required>
       <label for="body"> Body: </label>
@@ -8,7 +8,7 @@
       <input type="file" name="coverPhoto" @change="handleFileUpload( $event )" required>
       <input type="submit">
       <button>
-        <nuxt-link to="/announcements">
+        <nuxt-link to="/activities">
           Go back to posts
         </nuxt-link>
       </button>
@@ -35,13 +35,13 @@ export default {
 
   },
   methods: {
-    addAnnouncements() {
+    addActivity() {
       let formData = new FormData()
       formData.append('title', this.form.title);
       formData.append('description', this.form.body);
       formData.append('coverPhoto', this.form.coverPhoto);
-      this.$store.dispatch('announcement/addAnnouncement', formData)
-      this.$router.push('/announcements')
+      this.$store.dispatch('activity/addActivity', formData)
+      this.$router.push('/activities')
     },
     handleFileUpload(event){
       this.form.coverPhoto = event.target.files[0]
@@ -49,7 +49,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>
