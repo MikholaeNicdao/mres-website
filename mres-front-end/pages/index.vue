@@ -2,7 +2,7 @@
   <div>
     <img class="sliderImage" src="~/assets/images/schoolSlider.png" alt="">
     <div class="schoolAnnouncements">
-      <AnnouncementList />
+      <TopAnnouncements />
       <SideBar />
     </div>       
     <ActivityList />
