@@ -143,3 +143,55 @@ exports.LCPUpload = (req,res)=>{
         }
     })
 }
+
+// Delete Data from database
+
+exports.deleteSchedule = (req,res)=>{
+    apiModel.deleteSchedule((err, result)=>{
+        if(err){
+            res.status(404).json({success: false, description: result})
+        }else{
+            res.status(200).json({success: true, description: result})
+        }
+    })
+}
+
+exports.removeFacultyById = (req,res)=>{
+    apiModel.removeFacultyById(req.params.id, (err, result)=>{
+        if(err){
+            res.status(404).json({success: false, description: result})
+        }else{
+            res.status(200).json({success: true, description: result})
+        }
+    })
+}
+
+exports.removeSAById = (req,res)=>{
+    apiModel.removeSAById(req.params.id, (err, result)=>{
+        if(err){
+            res.status(404).json({success: false, description: result})
+        }else{
+            res.status(200).json({success: true, description: result})
+        }
+    })
+}
+
+exports.removeAnnouncementsById = (req,res)=>{
+    apiModel.removeAnnouncementsById(req.params.id, (err, result)=>{
+        if(err){
+            res.status(404).json({success: false, description: result})
+        }else{
+            res.status(200).json({success: true, description: result})
+        }
+    })
+}
+
+exports.removeLCPById = (req,res)=>{
+    apiModel.removeLCPById(req.params.id, (err, result)=>{
+        if(err){
+            res.status(404).json({success: false, description: result})
+        }else{
+            res.status(200).json({success: true, description: result})
+        }
+    })
+}

@@ -125,6 +125,59 @@ class mresQuery{
             }
         })
     }
+
+    // Deleting DATA's
+
+    static deleteSchedule(result){
+        dbconnect.query('DELETE FROM schedules WHERE schedulenote != "undefined"', (err,res)=>{
+            if(err){
+                result(null, err)
+            }else{
+                result(null, res)
+            }
+        })
+    }
+
+    static removeFacultyById(id, result){
+        dbconnect.query('DELETE FROM faculty WHERE id=?', [id],(err,res)=>{
+            if(err){
+                result(null, err)
+            }else{
+                result(null, res)
+            }
+        })
+    }
+
+    static removeSAById(id, result){
+        dbconnect.query('DELETE FROM schoolactivities WHERE id=?', [id],(err,res)=>{
+            if(err){
+                result(null, err)
+            }else{
+                result(null, res)
+            }
+        })
+    }
+
+    static removeAnnouncementsById(id, result){
+        dbconnect.query('DELETE FROM announcements WHERE id=?', [id],(err,res)=>{
+            if(err){
+                result(null, err)
+            }else{
+                result(null, res)
+            }
+        })
+    }
+
+    static removeLCPById(id, result){
+        dbconnect.query('DELETE FROM lcp WHERE id=?', [id],(err,res)=>{
+            if(err){
+                result(null, err)
+            }else{
+                result(null, res)
+            }
+        })
+    }
+
 }
 
 module.exports = mresQuery
