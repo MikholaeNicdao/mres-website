@@ -17,17 +17,20 @@ router.get('/Announcements', apiController.getAllSchoolAnnouncements)
 router.get('/Announcements/:id', apiController.getByIdAnnouncements)
 router.get('/LearningContinuityPlan', apiController.getAllLCP)
 
-// ADMIN POST Create routers
-router.post('/Schedule/Upload', apiController.scheduleUpload)
-router.post('/Faculty/AddFacultyMember', upload.single('coverPhoto'),apiController.addFacultyMember)
-router.post('/SchoolActivities/Upload', upload.single('coverPhoto'),apiController.schoolActivitiesUpload)
-router.post('/Announcements/Upload', upload.single('coverPhoto'), apiController.announcementsUpload)
-router.post('/LearningContinuityPlan/Upload', upload.single('coverPhoto'), apiController.LCPUpload)
+// ADMIN POST API's
+router.post('/Faculty/add/member', upload.single('coverPhoto'),apiController.addFacultyMember)
+router.post('/SchoolActivities/add', upload.single('coverPhoto'),apiController.schoolActivitiesUpload)
+router.post('/Announcements/add', upload.single('coverPhoto'), apiController.announcementsUpload)
+router.post('/LearningContinuityPlan/add', upload.single('coverPhoto'), apiController.LCPUpload)
 
-// ADMIN POST Update routers 
+// ADMIN UPDATE API's
+router.put('/Schedule/update', apiController.scheduleUpload)
+router.put('/SchoolActivities/update/:id', upload.single('coverPhoto'),apiController.updateSA)
+router.put('/Announcements/update/:id', upload.single('coverPhoto'),apiController.updateAnnouncements)
+router.put('/LearningContinuityPlan/update/:id', upload.single('coverPhoto'), apiController.updateLCP)
+router.put('/Faculty/update/member/:id', upload.single('coverPhoto'), apiController.updateFaculty)
 
-
-// ADMIN POST Delete routers 
+// ADMIN DELETE API's
 router.delete('/Schedule/remove', apiController.deleteSchedule)
 router.delete('/Faculty/remove/:id', apiController.removeFacultyById)
 router.delete('/SchoolActivities/remove/:id', apiController.removeSAById)

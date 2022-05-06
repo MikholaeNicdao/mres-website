@@ -75,9 +75,14 @@ class mresQuery{
         })
     }
 
+
+
+
+
+
     // Uploading file and data
     static scheduleUpload(schedule, result){
-        dbconnect.query('INSERT INTO schedules (schedulenote) VALUES (?)', [schedule], (err,res)=>{
+        dbconnect.query('UPDATE schedules SET schedulenote=? WHERE id > 0', [schedule], (err,res)=>{
             if(err){
                 result(null, err)
             }else{
@@ -126,6 +131,10 @@ class mresQuery{
         })
     }
 
+
+
+
+
     // Deleting DATA's
 
     static deleteSchedule(result){
@@ -170,6 +179,51 @@ class mresQuery{
 
     static removeLCPById(id, result){
         dbconnect.query('DELETE FROM lcp WHERE id=?', [id],(err,res)=>{
+            if(err){
+                result(null, err)
+            }else{
+                result(null, res)
+            }
+        })
+    }
+
+
+
+
+
+    // UPDATING DATA's
+    static updateSA(image,title,description,id, result){
+        dbconnect.query('UPDATE schoolactivities SET coverPhoto=?, title=?, description=?, createdAt=? WHERE id=?', [image,title,description,date,id],(err,res)=>{
+            if(err){
+                result(null, err)
+            }else{
+                result(null, res)
+            }
+        })
+    }
+
+    static updateAnnouncements(image,title,description,id, result){
+        dbconnect.query('UPDATE announcements SET coverPhoto=?, title=?, description=?, createdAt=? WHERE id=?', [image,title,description,date,id],(err,res)=>{
+            if(err){
+                result(null, err)
+            }else{
+                result(null, res)
+            }
+        })
+    }
+    
+    static updateLCP(image,id, result){
+        dbconnect.query('UPDATE lcp SET coverPhoto=?, createdAt=? WHERE id=?', [image,date,id],(err,res)=>{
+            if(err){
+                result(null, err)
+            }else{
+                result(null, res)
+            }
+        })
+    }
+
+    static updateFaculty(coverPhoto ,TPGL, prefix, firstName, middleInitial, lastName, position, id,result){
+        dbconnect.query('UPDATE faculty SET coverPhoto=?, teacherPerGradeLevel=?, prefix=?, firstName=?, middleInitial=?, lastName=?, position=? WHERE id=?', [ coverPhoto, TPGL, prefix, firstName, middleInitial, lastName, position, id], (err,res)=>{
             if(err){
                 result(null, err)
             }else{

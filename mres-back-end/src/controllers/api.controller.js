@@ -75,9 +75,7 @@ exports.getAllLCP = (req,res)=>{
 
 // Sending Data and File Uploading
 exports.scheduleUpload = (req,res)=>{
-    scheduleData = req.body.schedule
-
-    apiModel.scheduleUpload(scheduleData, (err,result)=>{
+    apiModel.scheduleUpload(req.body.schedule, (err,result)=>{
         if(err){
             res.status(404).json({success: false, description: result})
         }else{
@@ -188,6 +186,66 @@ exports.removeAnnouncementsById = (req,res)=>{
 
 exports.removeLCPById = (req,res)=>{
     apiModel.removeLCPById(req.params.id, (err, result)=>{
+        if(err){
+            res.status(404).json({success: false, description: result})
+        }else{
+            res.status(200).json({success: true, description: result})
+        }
+    })
+}
+
+
+// UPDATING DATA
+exports.updateSA = (req,res)=>{
+    image = req.file.buffer.toString('base64')
+    title = req.body.title
+    description = req.body.description
+
+    apiModel.updateSA(image,title,description,req.params.id,(err,result)=>{
+        if(err){
+            res.status(404).json({success: false, description: result})
+        }else{
+            res.status(200).json({success: true, description: result})
+        }
+    })
+}
+
+exports.updateAnnouncements = (req,res)=>{
+    image = req.file.buffer.toString('base64')
+    title = req.body.title
+    description = req.body.description
+
+    apiModel.updateAnnouncements(image,title,description,req.params.id,(err,result)=>{
+        if(err){
+            res.status(404).json({success: false, description: result})
+        }else{
+            res.status(200).json({success: true, description: result})
+        }
+    })
+}
+
+exports.updateLCP = (req,res)=>{
+    image = req.file.buffer.toString('base64')
+
+    apiModel.updateAnnouncements(image,req.params.id,(err,result)=>{
+        if(err){
+            res.status(404).json({success: false, description: result})
+        }else{
+            res.status(200).json({success: true, description: result})
+        }
+    })
+}
+
+exports.updateFaculty = (req,res)=>{
+    image = req.file.buffer.toString('base64')
+    teacherPerGradeLevel = req.body.teacherPerGradeLevel
+    prefix = req.body.prefix
+    firstName = req.body.firstName
+    middleInitial = req.body.middleInitial
+    lastName = req.body.lastName
+    position = req.body.position
+
+    apiModel.updateFaculty(image,teacherPerGradeLevel,prefix, firstName, middleInitial, lastName, position, req.params.id,(err,result)=>{
         if(err){
             res.status(404).json({success: false, description: result})
         }else{
