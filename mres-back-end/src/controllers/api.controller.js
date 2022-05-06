@@ -1,3 +1,5 @@
+'use strict'
+
 const apiModel = require('../models/api.model')
 
 // Get information

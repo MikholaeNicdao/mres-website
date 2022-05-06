@@ -1,4 +1,7 @@
+'use strict'
+
 let dbconnect = require('../../config/database.config')
+const date = new Date()
 
 class mresQuery{
 
@@ -94,7 +97,7 @@ class mresQuery{
     }
 
     static schoolActivitiesUpload(coverPhoto, title, description, result){
-        dbconnect.query('INSERT INTO schoolactivities (id, coverPhoto, title, description) VALUES (?,?,?,?)', ['', coverPhoto, title, description], (err,res)=>{
+        dbconnect.query('INSERT INTO schoolactivities (id, coverPhoto, title, description, createdAt) VALUES (?,?,?,?,?)', ['', coverPhoto, title, description, date], (err,res)=>{
             if(err){
                 result(null, err)
             }else{
@@ -104,7 +107,7 @@ class mresQuery{
     }
 
     static announcementsUpload(coverPhoto, title, description, result){
-        dbconnect.query('INSERT INTO announcements (id, coverPhoto, title, description) VALUES (?,?,?,?)', ['', coverPhoto, title, description], (err,res)=>{
+        dbconnect.query('INSERT INTO announcements (id, coverPhoto, title, description, createdAt) VALUES (?,?,?,?,?)', ['', coverPhoto, title, description, date], (err,res)=>{
             if(err){
                 result(null, err)
             }else{
@@ -114,7 +117,7 @@ class mresQuery{
     }
 
     static LCPUpload(coverPhoto, result){
-        dbconnect.query('INSERT INTO lcp (id, coverPhoto) VALUES (?,?)', ['', coverPhoto], (err,res)=>{
+        dbconnect.query('INSERT INTO lcp (id, coverPhoto, createdAt) VALUES (?,?,?)', ['', coverPhoto, date], (err,res)=>{
             if(err){
                 result(null, err)
             }else{
