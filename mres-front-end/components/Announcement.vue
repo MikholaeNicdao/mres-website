@@ -30,9 +30,6 @@ export default {
     }
   },
   computed:{
-    announcements(){
-      return this.$store.state.announcement.announcements
-    },
     announcementCover(){
       return "data:image/jpg; base64, " + this.announcement.coverPhoto
     }
