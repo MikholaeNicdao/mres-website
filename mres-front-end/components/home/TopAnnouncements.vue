@@ -8,7 +8,7 @@
                     <div>
                         <h5> {{ announcement.title }}</h5>
                         <!-- <p>{{ announcement.date }}</p> -->
-                        <p> {{ announcement.description }} </p>
+                        <p> {{ announcementDate(announcement.createdAt) }} </p>
                     </div>
                     <nuxt-link :to="'/announcements/' + announcement.id">Read more</nuxt-link>
                 </div>
@@ -22,7 +22,13 @@ import { mapGetters } from 'vuex'
 
 export default {
     name: 'AnnouncementPage',
-    middleware: ['setAnnouncements'],
+    methods: {
+      announcementDate(aDate){
+        const date = new Date(aDate)
+        const formattedDate = `${date.toLocaleString('default', { month: 'long' })} ${date.getDay()}, ${date.getFullYear()}`
+        return formattedDate
+      },
+    },
     computed: {
         announcements () {
             return this.$store.state.announcement.announcements

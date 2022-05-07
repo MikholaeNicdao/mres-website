@@ -29,7 +29,8 @@ export default {
   components: [
     // Equivalent to { path: '~/components' }
     '~/components',
-    { path: '~/components/home', extensions: ['vue'] }
+    { path: '~/components/home', extensions: ['vue'] },
+    { path: '~/components/forms', extensions: ['vue'] }
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules

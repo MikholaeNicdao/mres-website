@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="addFaculty()" id="facultyForm">
+  <form @submit.prevent="$emit('on-submit', form)" id="facultyForm">
       <label for="firstName"> First name: </label>
       <input type="text" name="firstName" v-model="form.firstName" required>
       <label for="middleinitial"> Middle Initial: </label>
@@ -21,47 +21,30 @@
         </nuxt-link>
       </button>
   </form>
-  <!-- <div v-else>
-    You need to be logged in to add posts
-    <nuxt-link to="/login"> 
-    Go to login 
-    </nuxt-link>
-  </div> -->
 </template>
 
 <script>
-
 export default {
-  data(){
-    const form = {
-      firstName: "",
-      middleinitial: "",
-      lastName: "",
-      prefix: "",
-      position: "",
-      teacherPerGradeLevel: "",
-      coverPhoto: "",
-    }
-    
-    return { form }
-
-  },
-  methods: {
-    addFaculty() {
-      let formData = new FormData()
-      formData.append('coverPhoto', this.form.coverPhoto);
-      formData.append('teacherPerGradeLevel', this.form.teacherPerGradeLevel);
-      formData.append('prefix', this.form.prefix);
-      formData.append('firstName', this.form.firstName);
-      formData.append('middleInitial', this.form.middleinitial);
-      formData.append('lastName', this.form.lastName);
-      formData.append('position', this.form.position);
-      this.$store.dispatch('faculty/addFaculty', formData)
-      this.$router.push('/faculty')
+    data(){
+        const form = {
+            firstName: "",
+            middleinitial: "",
+            lastName: "",
+            prefix: "",
+            position: "",
+            teacherPerGradeLevel: "",
+            coverPhoto: "",
+        }
+        return { form }
     },
-    handleFileUpload(event){
-      this.form.coverPhoto = event.target.files[0]
+    methods: {
+        handleFileUpload(event){
+            this.form.coverPhoto = event.target.files[0]
+        }
     }
-  }
 }
 </script>
+
+<style>
+
+</style>

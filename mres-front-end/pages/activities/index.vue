@@ -7,6 +7,9 @@
           <h3> {{ activity.title  }} </h3>
           <p> {{ activity.description }} </p>
           <img :src="`data:image/jpg; base64, ${activity.coverPhoto}`">
+          <a @click="deleteActivity(activity.id)">
+            Delete
+          </a>
         </li>
       </ul>
   </div>
@@ -17,6 +20,11 @@ export default {
     name: 'ActivitiesPage',
     beforeCreate(){
       this.$store.dispatch('activity/fetchActivities')
+    },
+    methods: {
+      deleteActivity(id){
+        this.$store.dispatch('activity/deleteActivity', id)
+      }
     },
     computed: {
         activities () {

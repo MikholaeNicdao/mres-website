@@ -6,6 +6,8 @@
         <li v-for="faculty in facultyList" :key="faculty.id">
           <p> {{ faculty.firstName + " " + faculty.lastName }} </p>
           <img :src="`data:image/jpg; base64, ${faculty.coverPhoto}`">
+          <nuxt-link :to="`/faculty/${faculty.id}/edit`"> Edit </nuxt-link>
+          <a @click="deleteFaculty(faculty.id)"> Delete </a> 
         </li>
       </ul>
   </div>
@@ -16,6 +18,14 @@ export default {
   name: 'FacultyPage',
   beforeCreate(){
     this.$store.dispatch('faculty/fetchFaculty')
+  },
+  methods: {
+    editFaculty(id){
+      this.$store.dispatch('faculty/deleteFaculty', id)
+    },
+    deleteFaculty(id){
+      this.$store.dispatch('faculty/deleteFaculty', id)
+    }
   },
   computed: {
     facultyList(){

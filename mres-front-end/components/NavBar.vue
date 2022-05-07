@@ -14,7 +14,7 @@
         <ul class="links">
           <li><nuxt-link to="/activities">Activities</nuxt-link></li>
           <li><nuxt-link to="/announcements">Announcements</nuxt-link></li>
-          <li><nuxt-link to="/faculty">Faculty</nuxt-link></li>
+          <li><a href="#">Enrollment</a></li>
           <li><a href="#">Services<img class="dropDownBtn" src="~assets/images/dropDownBtn.png"></a>
               <div class="servicesMenu">
                   <ul>
@@ -30,7 +30,7 @@
                   <ul>
                       <li><nuxt-link to="/about/vision_mission">Vision & Mission</nuxt-link></li>
                       <li><a href="#">History</a></li>
-                      <li><a href="#">Faculty</a></li>
+                      <li><nuxt-link to="/faculty">Faculty</nuxt-link></li>
                       <li><a href="#">Learning Management System</a></li>
                   </ul>
               </div>

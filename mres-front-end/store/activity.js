@@ -23,7 +23,27 @@ export const actions = {
     },
     async addActivity({dispatch}, formData){
         try {
-            await axios.post("http://localhost:4000/api/v1/SchoolActivities/Upload", formData)
+            await axios.post("http://localhost:4000/api/v1/SchoolActivities/add", formData)
+
+            await dispatch('fetchActivities')
+
+        }catch (error) {
+            console.log(error)
+        }
+    },
+    async updateActivity({ dispatch }, req){
+        try {
+            await axios.put("http://localhost:4000/api/v1//Announcements/update/" + req.id, req.formData)
+
+            await dispatch('fetchActivities')
+
+        }catch (error) {
+            console.log(error.message)
+        }
+    },
+    async deleteActivity({dispatch}, id){
+        try {
+            await axios.delete("http://localhost:4000/api/v1/SchoolActivities/remove/" + id)
 
             await dispatch('fetchActivities')
 

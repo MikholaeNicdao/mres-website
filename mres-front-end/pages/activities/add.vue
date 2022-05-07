@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="addActivity()" class="flex-column">
+  <form @submit.prevent="addActivity()">
       <label for="title"> Title: </label>
       <input type="text" name="title" v-model="form.title" required>
       <label for="body"> Body: </label>

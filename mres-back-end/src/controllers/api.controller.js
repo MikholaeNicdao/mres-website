@@ -85,13 +85,13 @@ exports.scheduleUpload = (req,res)=>{
 }
 
 exports.addFacultyMember = (req,res)=>{
-    image = req.file.buffer.toString('base64')
-    teacherPerGradeLevel = req.body.teacherPerGradeLevel
-    prefix = req.body.prefix
-    firstName = req.body.firstName
-    middleInitial = req.body.middleInitial
-    lastName = req.body.lastName
-    position = req.body.position
+    let image = req.file.buffer.toString('base64')
+    let teacherPerGradeLevel = req.body.teacherPerGradeLevel
+    let prefix = req.body.prefix
+    let firstName = req.body.firstName
+    let middleInitial = req.body.middleInitial
+    let lastName = req.body.lastName
+    let position = req.body.position
 
     apiModel.addFacultyMember(image,teacherPerGradeLevel,prefix, firstName, middleInitial, lastName, position, (err,result)=>{
         if(err){
@@ -103,9 +103,9 @@ exports.addFacultyMember = (req,res)=>{
 }
 
 exports.schoolActivitiesUpload = (req,res)=>{
-    image = req.file.buffer.toString('base64')
-    title = req.body.title
-    description = req.body.description
+    let image = req.file.buffer.toString('base64')
+    let title = req.body.title
+    let description = req.body.description
 
     apiModel.schoolActivitiesUpload(image,title,description,(err,result)=>{
         if(err){
@@ -117,9 +117,9 @@ exports.schoolActivitiesUpload = (req,res)=>{
 }
 
 exports.announcementsUpload = (req,res)=>{
-    image = req.file.buffer.toString('base64')
-    title = req.body.title
-    description = req.body.description
+    let image = req.file.buffer.toString('base64')
+    let title = req.body.title
+    let description = req.body.description
 
     apiModel.announcementsUpload(image,title,description,(err,result)=>{
         if(err){
@@ -197,9 +197,9 @@ exports.removeLCPById = (req,res)=>{
 
 // UPDATING DATA
 exports.updateSA = (req,res)=>{
-    image = req.file.buffer.toString('base64')
-    title = req.body.title
-    description = req.body.description
+    let image = req.file.buffer.toString('base64')
+    let title = req.body.title
+    let description = req.body.description
 
     apiModel.updateSA(image,title,description,req.params.id,(err,result)=>{
         if(err){
@@ -211,9 +211,9 @@ exports.updateSA = (req,res)=>{
 }
 
 exports.updateAnnouncements = (req,res)=>{
-    image = req.file.buffer.toString('base64')
-    title = req.body.title
-    description = req.body.description
+    let image = req.file.buffer.toString('base64')
+    let title = req.body.title
+    let description = req.body.description
 
     apiModel.updateAnnouncements(image,title,description,req.params.id,(err,result)=>{
         if(err){
@@ -225,7 +225,7 @@ exports.updateAnnouncements = (req,res)=>{
 }
 
 exports.updateLCP = (req,res)=>{
-    image = req.file.buffer.toString('base64')
+    let image = req.file.buffer.toString('base64')
 
     apiModel.updateAnnouncements(image,req.params.id,(err,result)=>{
         if(err){
@@ -237,13 +237,13 @@ exports.updateLCP = (req,res)=>{
 }
 
 exports.updateFaculty = (req,res)=>{
-    image = req.file.buffer.toString('base64')
-    teacherPerGradeLevel = req.body.teacherPerGradeLevel
-    prefix = req.body.prefix
-    firstName = req.body.firstName
-    middleInitial = req.body.middleInitial
-    lastName = req.body.lastName
-    position = req.body.position
+    let image = req.file.buffer.toString('base64')
+    let teacherPerGradeLevel = req.body.teacherPerGradeLevel
+    let prefix = req.body.prefix
+    let firstName = req.body.firstName
+    let middleInitial = req.body.middleInitial
+    let lastName = req.body.lastName
+    let position = req.body.position
 
     apiModel.updateFaculty(image,teacherPerGradeLevel,prefix, firstName, middleInitial, lastName, position, req.params.id,(err,result)=>{
         if(err){

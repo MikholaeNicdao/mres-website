@@ -34,7 +34,27 @@ export const actions = {
     },
     async addAnnouncement({ dispatch }, formData){
         try {
-            await axios.post("http://localhost:4000/api/v1/Announcements/Upload", formData)
+            await axios.post("http://localhost:4000/api/v1/Announcements/add", formData)
+
+            await dispatch('fetchAnnouncements')
+
+        }catch (error) {
+            console.log(error.message)
+        }
+    },
+    async updateAnnouncement({ dispatch }, data){
+        try {
+            await axios.put("http://localhost:4000/api/v1/Announcements/update/" + data.id, data.formData)
+
+            await dispatch('fetchAnnouncements')
+
+        }catch (error) {
+            console.log(error.message)
+        }
+    },
+    async deleteAnnouncement({ dispatch }, id){
+        try {
+            await axios.delete("http://localhost:4000/api/v1/Announcements/remove/" + id)
 
             await dispatch('fetchAnnouncements')
 
