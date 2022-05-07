@@ -1,6 +1,49 @@
 'use strict'
 
 const apiModel = require('../models/api.model')
+const bcrypt = require('bcrypt')
+const { json } = require('body-parser')
+
+// Create admin account
+exports.createAdmin = async (req,res)=>{
+    let userName = req.body.userName
+    let passWord = req.body.passWord
+
+    const salt = await bcrypt.genSalt(12)
+    const hashPassWord = await bcrypt.hash(passWord, salt)
+    
+    apiModel.createAdmin(userName, hashPassWord, (err,data)=>{
+        if(err){
+            res.status(403).json({success: false, description: data})
+        }else{
+            res.status(200).json({success: true, description: data})
+        }
+    })
+}
+
+// Verify login
+exports.loginAdmin = (req,res)=>{
+    let userName = req.body.userName
+    let passWord = req.body.passWord
+
+    apiModel.loginAdmin(userName, async (err,data)=>{
+        if(err || data == null){
+            res.status(403).json({success: false})
+        }else{
+            const dataParse = JSON.parse(JSON.stringify(data).replace('[','').replace(']',''))
+            const isVerified = comparePassword(passWord,dataParse.passWord)
+            function comparePassword(password,hashpassword){
+                return bcrypt.compareSync(password, hashpassword)
+            }
+
+            if(isVerified){
+                res.status(200).json({success: true, description: data})
+            }else{
+                res.status(403).json({success: false})
+            }
+        }
+    })
+}
 
 // Get information
 exports.getSchedule = (req,res)=>{
@@ -131,7 +174,7 @@ exports.announcementsUpload = (req,res)=>{
 }
 
 exports.LCPUpload = (req,res)=>{
-    image = req.file.buffer.toString('base64')
+    let image = req.file.buffer.toString('base64')
 
     apiModel.LCPUpload(image,(err,result)=>{
         if(err){
