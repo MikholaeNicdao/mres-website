@@ -28,10 +28,10 @@
           <li><a href="#">About<img class="dropDownBtn" src="~assets/images/dropDownBtn.png"></a>
               <div class="aboutMenu">
                   <ul>
-                      <li><nuxt-link to="/about/vision_mission">Vision & Mission</nuxt-link></li>
-                      <li><a href="#">History</a></li>
+                      <li><nuxt-link to="/about/vision_mission">Vision &#38; Mission</nuxt-link></li>
+                      <li><nuxt-link to="/about/history">History</nuxt-link></li>
                       <li><nuxt-link to="/faculty">Faculty</nuxt-link></li>
-                      <li><a href="#">Learning Management System</a></li>
+                      <li><a href="#">Continuity Plan</a></li>
                   </ul>
               </div>
           </li>

@@ -2,13 +2,12 @@
     <section class="announcementSection">
         <div class="annoucements">
             <h4>Annoucements</h4>
-            <div class="announcement" v-for="announcement in topAnnouncements" :key="announcement.id">
+            <div class="announcement" v-for="announcement in recentAnnouncements" :key="announcement.id">
                 <img :src="`data:image/jpg; base64, ${announcement.coverPhoto}`">
                 <div class="announcementContainer">
                     <div>
                         <h5> {{ announcement.title }}</h5>
-                        <!-- <p>{{ announcement.date }}</p> -->
-                        <p> {{ announcementDate(announcement.createdAt) }} </p>
+                        <p> {{ announcement.createdAt }} </p>
                     </div>
                     <nuxt-link :to="'/announcements/' + announcement.id">Read more</nuxt-link>
                 </div>
@@ -18,24 +17,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
-    name: 'AnnouncementPage',
-    methods: {
-      announcementDate(aDate){
-        const date = new Date(aDate)
-        const formattedDate = `${date.toLocaleString('default', { month: 'long' })} ${date.getDay()}, ${date.getFullYear()}`
-        return formattedDate
-      },
-    },
+    name: 'TopAnnouncements',
     computed: {
-        announcements () {
-            return this.$store.state.announcement.announcements
-        },
-        ...mapGetters({
-          topAnnouncements: "announcement/getTopAnnouncements",
-        })
+        recentAnnouncements(){
+          return this.$store.state.announcement.recentAnnouncements
+        }
     }
 }
 </script>

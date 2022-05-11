@@ -97,7 +97,7 @@ exports.getAllSchoolAnnouncements = (req,res)=>{
 }
 
 exports.getByIdAnnouncements = (req,res)=>{
-    apiModel.getByIdAnnouncements((err,data)=>{
+    apiModel.getByIdAnnouncements(req.params.id, (err,data)=>{
         if(err){
             res.status(404).json({success: false, description: data})
         }else{

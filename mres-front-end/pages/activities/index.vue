@@ -1,35 +1,47 @@
 <template>
-  <div>
-      <h2>Activities</h2>
-      <nuxt-link to="/activities/add">Add activity</nuxt-link>
-      <ul>
-        <li v-for="activity in activities" :key="activity.id">
-          <h3> {{ activity.title  }} </h3>
-          <p> {{ activity.description }} </p>
-          <img :src="`data:image/jpg; base64, ${activity.coverPhoto}`">
-          <a @click="deleteActivity(activity.id)">
-            Delete
-          </a>
-        </li>
-      </ul>
-  </div>
+  <section>
+    <div class="announcementPage">
+        <h3> Activities </h3>
+        <nuxt-link to="/activities/add"> Add activity </nuxt-link>
+        <div class="articleList">
+          <ActivityCard v-for="activity in pageActivities" :key="activity.id" :activity="activity">
+          </ActivityCard>
+        </div>
+        <div class="pageBtn">
+            <a v-if="requestedPage > 1" @click="prevPage"> &#60;&#60;  Previous</a>
+            <p> Page {{ requestedPage }} of {{ lastPage }} </p>
+            <a v-if="!isLastPage" @click="nextPage">Next  &#62;&#62;</a>
+        </div>
+    </div>
+  </section>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
     name: 'ActivitiesPage',
-    beforeCreate(){
-      this.$store.dispatch('activity/fetchActivities')
+    async beforeCreate(){
+      await this.$store.dispatch('activity/fetchActivities')
     },
     methods: {
-      deleteActivity(id){
-        this.$store.dispatch('activity/deleteActivity', id)
+      nextPage(){
+        this.$store.dispatch('activity/setPage', this.requestedPage + 1)
+      },
+      prevPage(){
+        this.$store.dispatch('activity/setPage', this.requestedPage - 1)
       }
     },
     computed: {
-        activities () {
-            return this.$store.state.activity.activities
-        }
+      requestedPage(){
+        return this.$store.state.activity.requestedPage
+      },
+      isLastPage(){
+        return this.requestedPage === this.lastPage
+      },
+      ...mapGetters({
+        pageActivities: 'activity/getPageActivities',
+        lastPage: 'activity/getMaxPageCount'
+      })
     }
 }
 </script>

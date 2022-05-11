@@ -13,8 +13,9 @@
 
 export default {
   name: 'HomePage',
-  beforeCreate(){
-    this.$store.dispatch('announcement/fetchAnnouncements')
+  async beforeCreate(){
+    await this.$store.dispatch('announcement/fetchAnnouncements')
+    this.$store.dispatch('announcement/fetchRecentAnnouncements', { count:3 })
   }
 }
 </script>

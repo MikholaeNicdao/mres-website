@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AnnouncementForm @on-submit="updateAnnouncement" />
+      <ActivityForm @on-submit="updateActivity" />
   </div>
 </template>
 
@@ -8,14 +8,18 @@
 
 export default {
   methods: {
-    updateAnnouncement (form) {
+    updateActivity (form) {
       let formData = new FormData();
       formData.append('title', form.title)
       formData.append('description', form.body)
       formData.append('coverPhoto', form.coverPhoto)
-      this.$store.dispatch('announcement/updateAnnouncement', { id:this.$route.params.id, formData })
-      this.$router.push('/announcements')
+      this.$store.dispatch('activity/updateActivity', { id:this.$route.params.id, formData })
+      this.$router.push('/activities')
     }
   }
 }
 </script>
+
+<style>
+
+</style>

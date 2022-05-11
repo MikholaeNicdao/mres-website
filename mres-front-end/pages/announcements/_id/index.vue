@@ -12,10 +12,22 @@
                   <div class="postDate"><p>Posted {{ announcementDate }} </p></div>
               </div>
               <div class="content">
-                  
                   <p> {{ announcement.description }} </p>    
               </div>
+              <nuxt-link :to="'/announcements/' + announcement.id + '/edit'"> Edit </nuxt-link>
+              <a @click="deleteAnnouncement(announcement.id)"> Delete </a>
           </div>
+      </div>
+      <div class="recentList" v-if="recentAnnouncements">
+          <h5>Announcements</h5>
+          <div class="recentArticle" v-for="announcement in recentAnnouncements" :key="announcement.id">
+              <img :src="`data:image/jpg; base64, ${announcement.coverPhoto}`">
+              <div class="recentHeadline">
+                  <h5>{{ announcement.title }}</h5>
+                  <p>Posted {{ announcement.createdAt }}</p>
+                  <nuxt-link :to="'/announcements/' + announcement.id">Read more</nuxt-link>
+              </div>
+          </div>         
       </div>
   </div>
   <div v-else>
@@ -26,70 +38,34 @@
 <script>
 
 export default {
-  beforeCreate(){
-    this.$store.dispatch('announcement/fetchAnnouncements')
+  async beforeCreate(){
+    await this.$store.dispatch('announcement/fetchAnnouncements')
+    this.$store.dispatch('announcement/fetchRecentAnnouncements', 
+    { 
+      id:this.$route.params.id, 
+      count:3
+    })
+  },
+  methods:{
+    async deleteAnnouncement(id){
+      await this.$store.dispatch("announcement/deleteAnnouncement", id)
+      // When landing to this page, set requested page to 1
+      await this.$store.dispatch('announcement/setPage', 1)
+      this.$router.push("/announcements")
+    }
   },
   computed:{
+    recentAnnouncements(){
+      return this.$store.state.announcement.recentAnnouncements
+    },
     announcement() {
       return this.$store.state.announcement.announcements.find(a => a.id == this.$route.params.id )
     },
     announcementDate(){
       const date = new Date(this.announcement.createdAt)
-      const formattedDate = `${date.toLocaleString('default', { month: 'long' })} ${date.getDay()}, ${date.getFullYear()}`
+      const formattedDate = `${date.toLocaleString('default', { month: 'long' })} ${date.getDate()}, ${date.getFullYear()}`
       return formattedDate
     }
   }
 }
 </script>
-
-<style>
-.articlePage {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  min-height: 510px;}
-
-.article {
-  width: 65%;
-  padding: 50px 30px 150px 63px;}
-
-.articleContainer img {
-  width: 100%;
-  height: auto;
-  margin: 20px 0;}
-
-.headline h4 {
-  color: dimgray;
-  font-weight: normal;
-  font-size: 16px;}
-
-.headline h3 {
-  font-size: 35px; 
-  padding: 2px 0;}
-
-.postDate {
-  display: flex;}
-
-.byline p {
-  color: gray;
-  font-size: 16px;
-  padding: 3px 0;
-  margin-right: 5px;}
-
-p#author {
-  color: #329bd6;
-  font-size: 20px;}
-
-.author p {
-  display: flex;
-  align-items: center;
-  align-content: space-between;
-  color: black;}
-
-.content p {
-  font-size: 18px;}
-
-.content {
-  margin-top: 20px;}
-
-</style>

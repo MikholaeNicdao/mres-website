@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="$emit('on-submit', form)" class="annForm">
+  <form @submit.prevent="$emit('on-submit', form)" class="annForm" v-if="dataResolved">
       <label for="title"> Title: </label>
       <input type="text" name="title" v-model="form.title" required>
       <label for="body"> Body: </label>
@@ -7,10 +7,10 @@
       <label for="coverPhoto"> Cover Photo: </label>
       <input type="file" 
       name="coverPhoto" 
-      id="coverPhotoField" 
-      required 
+      id="coverPhotoField"  
       @change="handleFileUpload( $event )">
       <img id="coverPhotoPreview" 
+      :src="coverPhotoPreview"
       alt="No image selected">
       <input type="submit">
       <button>
@@ -19,30 +19,49 @@
         </nuxt-link>
       </button>
   </form>
+  <div v-else>
+    Loading...
+  </div>
 </template>
 
 <script>
+import validations from '~/plugins/validations.js'
 
 export default {
+  mixins: [validations],
+  async mounted(){
+    if(this.$route.params?.id){
+      await this.$store.dispatch("announcement/fetchTargetAnnouncement", this.$route.params.id)
+      this.dataResolved = true
+      this.assignDefaultValues()
+    }
+    else this.dataResolved = true
+  },
   data(){
-    const form = {
+    return { 
+      form: {
         title: "",
         body : "",
         coverPhoto : ""
+      },
+      coverPhotoPreview: "",
+      dataResolved: false
     }
-
-    let dataURL = ""
-    return { form, dataURL }
   },
   methods: {
+    assignDefaultValues(){
+      this.form.title = this.targetAnnouncement.title
+      this.form.body = this.targetAnnouncement.description
+      this.coverPhotoPreview = "data:image/jpg; base64, " + this.targetAnnouncement.coverPhoto
+    },
     handleFileUpload(event){
       const file = event.target.files[0]
       const cp_field = document.getElementById("coverPhotoField")
-      const cp_preview = document.getElementById("coverPhotoPreview")
 
       if (!file) {
         cp_field.value = "";
-        cp_preview.src = "";
+        this.form.coverPhoto = this.dataUrlToFile("data:image/jpg; base64, " + this.targetAnnouncement.coverPhoto, "Default.png");
+        this.coverPhotoPreview = "data:image/jpg; base64, " + this.targetAnnouncement.coverPhoto;
         return
       }
     
@@ -52,19 +71,15 @@ export default {
         return
       }
 
-      cp_preview.src = URL.createObjectURL(file);
+      this.coverPhotoPreview = URL.createObjectURL(file);
 
       this.form.coverPhoto = event.target.files[0]
 
-    },
-    isValidImage(img) {
-      const file = img;
-      const fileType = file['type'];
-      const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
-      if (!validImageTypes.includes(fileType)) {
-          return false
-      }
-      return true
+    }
+  },
+  computed:{
+    targetAnnouncement(){
+      return this.$store.state.announcement.targetAnnouncement
     }
   }
 }
