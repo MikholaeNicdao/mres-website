@@ -43,7 +43,6 @@ export const actions = {
     },
     async deleteFaculty({ dispatch }, id){
         try {
-            console.log(id)
             await axios.delete("http://localhost:4000/api/v1/Faculty/remove/" + id)
 
             await dispatch('fetchFaculty')
