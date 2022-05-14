@@ -40,62 +40,62 @@ export default {
     this.fetchDefaultImage()
   },
   data(){
-      return {
-          form: 
-          {
-              title : "",
-              body: "",
-              coverPhoto: "",
-              author: "",
-          },
-          coverPhotoPreview: "/school.jpg",
-          type: "Announcement",
-          defaultImage: ""
-      }
+    return {
+        form: 
+        {
+            title : "",
+            body: "",
+            coverPhoto: "",
+            author: "",
+        },
+        coverPhotoPreview: "/school.jpg",
+        type: "Announcement",
+        defaultImage: ""
+    }
   },
   methods: {
-      submit(){
-        if (!this.form.coverPhoto) {
-          this.form.coverPhoto = this.defaultImage
-        }
-
-        const form = this.toFormData(this.form)
-
-        if (this.type === 'Announcement') {
-          this.$store.dispatch('announcement/addAnnouncement', form)
-        }
-        if (this.type === 'Activity') {
-          this.$store.dispatch('activity/addActivity', form)
-        }
-
-        if (confirm("Go to " + this.type + " page?")) {
-          let pushToRoute = this.type === 'Announcement'
-            ? '/announcements'
-            : '/activities'
-          this.$router.push(pushToRoute)
-        }
-      },
-      toFormData(){
-        const formData = new FormData()
-        formData.append('title', this.form.title);
-        formData.append('description', `${this.form.body}_${this.form.author}`);
-        formData.append('coverPhoto', this.form.coverPhoto);
-        return formData
-      },
-      handleFileUpload(event){
-        this.form.coverPhoto = event.target.files[0]
-        if (this.form.coverPhoto) {
-            this.coverPhotoPreview = URL.createObjectURL(this.form.coverPhoto);
-            return
-        }
+    submit(){
+      if (!this.form.coverPhoto) {
         this.form.coverPhoto = this.defaultImage
-        this.coverPhotoPreview = "/school.jpg"
-      },
-      fetchDefaultImage(){
-        fetch("/school.jpg")
-        .then(response => response.blob())
-        .then(data => this.defaultImage = data)
       }
+
+      const form = this.toFormData(this.form)
+
+      if (this.type === 'Announcement') {
+        this.$store.dispatch('announcement/addAnnouncement', form)
+      }
+      if (this.type === 'Activity') {
+        this.$store.dispatch('activity/addActivity', form)
+      }
+
+      if (confirm("Go to " + this.type + " page?")) {
+        let pushToRoute = this.type === 'Announcement'
+          ? '/announcements'
+          : '/activities'
+        this.$router.push(pushToRoute)
+      }
+    },
+    toFormData(){
+      const formData = new FormData()
+      formData.append('title', this.form.title);
+      formData.append('description', `${this.form.body}_${this.form.author}`);
+      formData.append('coverPhoto', this.form.coverPhoto);
+      return formData
+    },
+    handleFileUpload(event){
+      this.form.coverPhoto = event.target.files[0]
+      if (this.form.coverPhoto) {
+          this.coverPhotoPreview = URL.createObjectURL(this.form.coverPhoto);
+          return
+      }
+      this.form.coverPhoto = this.defaultImage
+      this.coverPhotoPreview = "/school.jpg"
+    },
+    fetchDefaultImage(){
+      fetch("/school.jpg")
+      .then(response => response.blob())
+      .then(data => this.defaultImage = data)
+    }
   }
 }
 </script>
