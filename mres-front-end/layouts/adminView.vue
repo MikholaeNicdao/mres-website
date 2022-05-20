@@ -5,9 +5,9 @@
             <div class="sidebar adminSidebar">
                 <ul>
                     <li><a href="#">Event Schedule</a></li>
-                    <li><a href="#">Organization List</a></li>
-                    <li><a href="#">Announcements</a></li>
-                    <li><a href="#">School Activities</a></li>
+                    <li><nuxt-link to="/admin/faculty"> Organization List </nuxt-link></li>
+                    <li><nuxt-link to="/admin/announcements">Announcements</nuxt-link></li>
+                    <li><nuxt-link to="/admin/activities"> School Activities</nuxt-link></li>
                     <li><a href="#">Account</a></li>
                 </ul>
             </div>
@@ -16,12 +16,6 @@
         <Footer />
     </div>
 </template>
-
-<script>
-export default {
-
-}
-</script>
 
 <style>
 section.admin {

@@ -35,6 +35,14 @@
                   </ul>
               </div>
           </li>
+          <li><a href="#">Settings<img class="dropDownBtn" src="~assets/images/dropDownBtn.png"></a>
+            <div class="settingsMenuAdmin">
+              <ul>
+                <li><a href="">Account</a></li>
+                <li><a href="">Logout</a></li>
+              </ul>
+            </div>
+          </li>
         </ul>
       </nav>
     </div>
@@ -101,7 +109,7 @@ nav .links li {
   display: none;
 }
 
-.aboutMenu, .servicesMenu {
+.aboutMenu, .servicesMenu, .settingsMenuAdmin {
   display: none;
   right: 100%;
   background: #cbcbcb;
@@ -176,10 +184,10 @@ img.logo {
     display:block;
   }
 
-  .aboutMenu, .servicesMenu {
+  .aboutMenu, .servicesMenu, .settingsMenu {
     background-color: #d9d9d9;
   }
-  .links li:hover .aboutMenu, .links li:hover .servicesMenu {
+  .links li:hover .aboutMenu, .links li:hover .servicesMenu, li:hover .settingsMenuAdmin {
       display: block;
       position: absolute;
       top:-10px;
@@ -187,7 +195,7 @@ img.logo {
   }
 }
 @media (min-width: 1161px){
-  .links li:hover .aboutMenu, .links li:hover .servicesMenu {
+  .links li:hover .aboutMenu, .links li:hover .servicesMenu, li:hover .settingsMenuAdmin{
       display: block;
       position: absolute;
       right: 55px;

@@ -2,32 +2,32 @@
     <div v-if="announcement" class="articlePage">
       <div class="article">
           <div class="articleContainer">
-              <div class="headline">
-                  <h4>Announcement</h4>
-                  <h3>{{ announcement.title }}</h3>
-              </div>
-              <img :src="`data:image/jpg; base64, ${announcement.coverPhoto}`">
-              <div class="byline">
-                  <div class="author"><p>By</p><p id="author">Author</p></div>
-                  <div class="postDate"><p>Posted {{ announcementDate }} </p></div>
-              </div>
-              <div class="content">
-                  <p> {{ announcement.description }} </p>    
-              </div>
-              <nuxt-link :to="'/announcements/' + announcement.id + '/edit'"> Edit </nuxt-link>
-              <a @click="deleteAnnouncement(announcement.id)"> Delete </a>
+            <div class="headline">
+              <h4>Announcement</h4>
+              <h3>{{ announcement.title }}</h3>
+            </div>
+            <img :src="`data:image/jpg; base64, ${announcement.coverPhoto}`">
+            <div class="byline">
+              <div class="author"><p>By</p><p id="author"> {{ announcement.author }}</p></div>
+              <div class="postDate"><p>Posted {{ announcementDate }} </p></div>
+            </div>
+            <div class="content">
+              <p v-html="announcement.description"></p>    
+            </div>
+            <nuxt-link :to="'/announcements/' + announcement.id + '/edit'"> Edit </nuxt-link>
+            <a @click="deleteAnnouncement(announcement.id)"> Delete </a>
           </div>
       </div>
       <div class="recentList" v-if="recentAnnouncements">
-          <h5>Announcements</h5>
-          <div class="recentArticle" v-for="announcement in recentAnnouncements" :key="announcement.id">
-              <img :src="`data:image/jpg; base64, ${announcement.coverPhoto}`">
-              <div class="recentHeadline">
-                  <h5>{{ announcement.title }}</h5>
-                  <p>Posted {{ announcement.createdAt }}</p>
-                  <nuxt-link :to="'/announcements/' + announcement.id">Read more</nuxt-link>
-              </div>
-          </div>         
+        <h5>Announcements</h5>
+        <div class="recentArticle" v-for="announcement in recentAnnouncements" :key="announcement.id">
+          <img :src="`data:image/jpg; base64, ${announcement.coverPhoto}`">
+          <div class="recentHeadline">
+            <h5>{{ announcement.title }}</h5>
+            <p>Posted {{ announcement.createdAt }}</p>
+            <nuxt-link :to="'/announcements/' + announcement.id">Read more</nuxt-link>
+          </div>
+        </div>         
       </div>
   </div>
   <div v-else>

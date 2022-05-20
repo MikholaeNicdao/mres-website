@@ -168,6 +168,10 @@ footer {
   }
 
 
+div.content p{
+  white-space: pre-line;
+}
+
 /*  */
 
 button#saveFacultyBtn {background: #329bd6;border: none;color: white;font-size: 20px;padding: 7px;border-radius: 8px;width: 110px;}
@@ -309,10 +313,13 @@ input.addFacultyField{
 .nameFaculty input[name="middleInitial"] {
   width: 100px;}
 
-.nameFaculty th,.positionFaculty th {
+.nameFaculty th,
+.positionFaculty th {
     padding: 0px 3px;}
 
-select#facultyPosition, .title, .other {
+select#facultyPosition, 
+.title, 
+.other {
   width: 279px;}
 
-/*  */
+  /*  */

@@ -8,13 +8,13 @@
               </div>
               <img :src="`data:image/jpg; base64, ${activity.coverPhoto}`">
               <div class="byline">
-                  <div class="author"><p>By</p><p id="author">Author</p></div>
+                  <div class="author"><p>By</p><p id="author">{{ activity.author }}</p></div>
                   <div class="postDate"><p>Posted {{ activityDate }} </p></div>
               </div>
               <div class="content">
-                  <p> {{ activity.description }} </p>    
+                  <p v-html="activity.description"> </p>  
               </div>
-              <nuxt-link :to="'/activities/' + activity.id + '/edit'"> Edit </nuxt-link>
+              <nuxt-link :to="'/admin/activities/' + activity.id + '/edit'"> Edit </nuxt-link>
               <a @click="deleteActivity(activity.id)"> Delete </a>
           </div>
       </div>

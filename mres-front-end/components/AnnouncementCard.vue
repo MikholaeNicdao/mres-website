@@ -1,6 +1,6 @@
 <template>
   <div class="listContainer">
-      <img :src="'data:image/jpg; base64, ' + this.announcement.coverPhoto"> 
+      <img :src="'data:image/jpg; base64, ' + announcement.coverPhoto"> 
       <div class="listContent">
           <div>
               <h4>{{ announcement.title }}</h4>

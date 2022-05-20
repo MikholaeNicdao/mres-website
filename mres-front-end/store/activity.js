@@ -35,10 +35,11 @@ export const mutations = {
 }
 
 export const actions = {
-    async fetchActivities({ commit }){
+    async fetchActivities({ dispatch, commit }){
         try {
-            let res = await axios.get("http://localhost:4000/api/v1/SchoolActivities")
+            const res = await axios.get("http://localhost:4000/api/v1/SchoolActivities")
 
+            dispatch('setAuthors', res.data.description)
             commit('setActivities', res.data.description)
             commit('setDateString')
 
@@ -46,10 +47,11 @@ export const actions = {
             console.log(error)
         }
     },
-    async fetchTargetActivity({ commit }, id){
+    async fetchTargetActivity({ dispatch, commit }, id){
         try {
             const res = await axios.get("http://localhost:4000/api/v1/SchoolActivities/" + id)
-
+            
+            dispatch('setAuthor', res.data.description[0])
             commit('setTargetActivity', res.data.description[0])
 
         }catch (error) {
@@ -98,6 +100,16 @@ export const actions = {
     },
     setPage({ commit }, page){
         commit('setPage', page)
+    },
+    setAuthors({ dispatch }, activities){
+        for(const activity of activities){
+            dispatch('setAuthor', activity)
+        }
+    },
+    setAuthor(context, activity){
+        const i = activity.description.lastIndexOf('_');
+        activity['author'] = activity.description.slice(i+1)
+        activity['description'] = activity.description.slice(0,i)
     }
 }
 
