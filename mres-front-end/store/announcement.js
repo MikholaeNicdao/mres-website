@@ -51,7 +51,7 @@ export const mutations = {
 export const actions = {
     async fetchAnnouncements({ commit }){
         try {
-            const res = await axios.get("http://localhost:4000/api/v1/Announcements")
+            const res = await axios.get("http://localhost:3306/api/v1/Announcements")
 
             commit('setAnnouncements', res.data.description)
             commit('setDateString')
@@ -63,7 +63,7 @@ export const actions = {
     },
     async fetchTargetAnnouncement({ commit }, id){
         try {
-            const res = await axios.get("http://localhost:4000/api/v1/Announcements/" + id)
+            const res = await axios.get("http://localhost:3306/api/v1/Announcements/" + id)
 
             commit('setTargetAnnouncement', res.data.description[0])
 
@@ -73,7 +73,7 @@ export const actions = {
     },
     async addAnnouncement({ dispatch }, formData){
         try {
-            await axios.post("http://localhost:4000/api/v1/Announcements/add", formData)
+            await axios.post("http://localhost:3306/api/v1/Announcements/add", formData)
 
             await dispatch('fetchAnnouncements')
 
@@ -83,7 +83,7 @@ export const actions = {
     },
     async updateAnnouncement({ dispatch }, data){
         try {
-            await axios.put("http://localhost:4000/api/v1/Announcements/update/" + data.id, data.formData)
+            await axios.put("http://localhost:3306/api/v1/Announcements/update/" + data.id, data.formData)
 
             await dispatch('fetchAnnouncements')
 
@@ -93,7 +93,7 @@ export const actions = {
     },
     async deleteAnnouncement({ dispatch }, id){
         try {
-            await axios.delete("http://localhost:4000/api/v1/Announcements/remove/" + id)
+            await axios.delete("http://localhost:3306/api/v1/Announcements/remove/" + id)
 
             await dispatch('fetchAnnouncements')
 

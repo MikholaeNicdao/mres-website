@@ -37,7 +37,7 @@ export const mutations = {
 export const actions = {
     async fetchActivities({ dispatch, commit }){
         try {
-            const res = await axios.get("http://localhost:4000/api/v1/SchoolActivities")
+            const res = await axios.get("http://localhost:3306/api/v1/SchoolActivities")
 
             dispatch('setAuthors', res.data.description)
             commit('setActivities', res.data.description)
@@ -49,7 +49,7 @@ export const actions = {
     },
     async fetchTargetActivity({ dispatch, commit }, id){
         try {
-            const res = await axios.get("http://localhost:4000/api/v1/SchoolActivities/" + id)
+            const res = await axios.get("http://localhost:3306/api/v1/SchoolActivities/" + id)
             
             dispatch('setAuthor', res.data.description[0])
             commit('setTargetActivity', res.data.description[0])
@@ -60,7 +60,7 @@ export const actions = {
     },
     async addActivity({dispatch}, formData){
         try {
-            await axios.post("http://localhost:4000/api/v1/SchoolActivities/add", formData)
+            await axios.post("http://localhost:3306/api/v1/SchoolActivities/add", formData)
 
             await dispatch('fetchActivities')
 
@@ -70,7 +70,7 @@ export const actions = {
     },
     async updateActivity({ dispatch }, req){
         try {
-            await axios.put("http://localhost:4000/api/v1/SchoolActivities/update/" + req.id, req.formData)
+            await axios.put("http://localhost:3306/api/v1/SchoolActivities/update/" + req.id, req.formData)
 
             await dispatch('fetchActivities')
 
@@ -80,7 +80,7 @@ export const actions = {
     },
     async deleteActivity({dispatch}, id){
         try {
-            await axios.delete("http://localhost:4000/api/v1/SchoolActivities/remove/" + id)
+            await axios.delete("http://localhost:3306/api/v1/SchoolActivities/remove/" + id)
 
             await dispatch('fetchActivities')
 

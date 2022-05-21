@@ -14,7 +14,7 @@ export const mutations = {
 export const actions = {
     async fetchFaculty({ commit }){
         try {
-            let res = await axios.get("http://localhost:4000/api/v1/Faculty/")
+            let res = await axios.get("http://localhost:3306/api/v1/Faculty/")
 
             commit('setFaculty', res.data.description)
 
@@ -24,7 +24,7 @@ export const actions = {
     },
     async addFaculty({ dispatch }, formData){
         try {
-            await axios.post("http://localhost:4000/api/v1/Faculty/add/member", formData)
+            await axios.post("http://localhost:3306/api/v1/Faculty/add/member", formData)
 
             await dispatch('fetchFaculty')
         }catch (error) {
@@ -33,7 +33,7 @@ export const actions = {
     },
     async updateFaculty({ dispatch }, req){
         try {
-            await axios.put("http://localhost:4000/api/v1//Faculty/update/member/" + req.id, req.formData)
+            await axios.put("http://localhost:3306/api/v1//Faculty/update/member/" + req.id, req.formData)
 
             await dispatch('fetchFaculty')
 
@@ -43,7 +43,7 @@ export const actions = {
     },
     async deleteFaculty({ dispatch }, id){
         try {
-            await axios.delete("http://localhost:4000/api/v1/Faculty/remove/" + id)
+            await axios.delete("http://localhost:3306/api/v1/Faculty/remove/" + id)
 
             await dispatch('fetchFaculty')
 

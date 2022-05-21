@@ -83,8 +83,6 @@ export default {
     submit(){
       const formData = this.toFormData(this.form)
 
-      console.log(formData.get('coverPhoto'))
-
       this.$emit('on-submit', { formData, type: this.type })
     },
     async assignDefaultValues(){

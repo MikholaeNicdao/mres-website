@@ -1,8 +1,5 @@
 <template>
     <div>
-        <div class="background">
-            <img src="~/assets/images/schoolSlider.png">
-        </div>
 
         <section>
             <div class="history">
@@ -30,7 +27,11 @@
         </section>
     </div>
 </template>
-
+<script>
+export default {
+    layout: 'about'
+}
+</script>
 <style>
 .background img {
     width: 100%;
