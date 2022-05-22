@@ -14,26 +14,35 @@
         <ul class="links">
           <li><nuxt-link to="/activities">Activities</nuxt-link></li>
           <li><nuxt-link to="/announcements">Announcements</nuxt-link></li>
-          <li><nuxt-link to="/faculty">Faculty</nuxt-link></li>
+          <li><nuxt-link to="/enrollment">Enrollment</nuxt-link></li>
           <li><a href="#">Services<img class="dropDownBtn" src="~assets/images/dropDownBtn.png"></a>
               <div class="servicesMenu">
                   <ul>
-                      <li><a href="#">Request Education Data</a></li>
-                      <li><a href="#">Job Application</a></li>
-                      <li><a href="#">Applicaton to Travel Abroad</a></li>
-                      <li><a href="#">Application for Leave</a></li>
+                      <li><nuxt-link to="/services">Request Education Data</nuxt-link></li>
+                      <li><nuxt-link to="/services">Job Application</nuxt-link></li>
+                      <li><nuxt-link to="/services">Applicaton to Travel Abroad</nuxt-link></li>
+                      <li><nuxt-link to="/services">Application for Leave</nuxt-link></li>
                   </ul>
               </div>
           </li>
           <li><a href="#">About<img class="dropDownBtn" src="~assets/images/dropDownBtn.png"></a>
               <div class="aboutMenu">
                   <ul>
-                      <li><nuxt-link to="/about/vision_mission">Vision & Mission</nuxt-link></li>
-                      <li><a href="#">History</a></li>
-                      <li><a href="#">Faculty</a></li>
-                      <li><a href="#">Learning Management System</a></li>
+                      <li><nuxt-link to="/about/vision_mission">Vision &#38; Mission</nuxt-link></li>
+                      <li><nuxt-link to="/about/history">History</nuxt-link></li>
+                      <li><nuxt-link to="/faculty">Faculty</nuxt-link></li>
+                      <li><a href="#">Continuity Plan</a></li>
                   </ul>
               </div>
+          </li>
+          <li><a href="#">Settings<img class="dropDownBtn" src="~assets/images/dropDownBtn.png"></a>
+            <div class="settingsMenuAdmin">
+              <ul>
+                <li><a href="">Account</a></li>
+                <li><a href="">Create Schedule</a></li>
+                <li><a href="">Logout</a></li>
+              </ul>
+            </div>
           </li>
         </ul>
       </nav>
@@ -101,7 +110,7 @@ nav .links li {
   display: none;
 }
 
-.aboutMenu, .servicesMenu {
+.aboutMenu, .servicesMenu, .settingsMenuAdmin {
   display: none;
   right: 100%;
   background: #cbcbcb;
@@ -118,7 +127,7 @@ nav .links li {
   color: #404040;
 }
 img.logo {
-  width: 90px;
+  width: 75px;
 }
 .sname {
   font-size: 1.6em;
@@ -176,10 +185,10 @@ img.logo {
     display:block;
   }
 
-  .aboutMenu, .servicesMenu {
+  .aboutMenu, .servicesMenu, .settingsMenu {
     background-color: #d9d9d9;
   }
-  .links li:hover .aboutMenu, .links li:hover .servicesMenu {
+  .links li:hover .aboutMenu, .links li:hover .servicesMenu, li:hover .settingsMenuAdmin {
       display: block;
       position: absolute;
       top:-10px;
@@ -187,7 +196,7 @@ img.logo {
   }
 }
 @media (min-width: 1161px){
-  .links li:hover .aboutMenu, .links li:hover .servicesMenu {
+  .links li:hover .aboutMenu, .links li:hover .servicesMenu, li:hover .settingsMenuAdmin{
       display: block;
       position: absolute;
       right: 55px;

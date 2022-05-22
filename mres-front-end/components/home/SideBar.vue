@@ -50,7 +50,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .sidebar {
   width:35%;
   display: inline-block;

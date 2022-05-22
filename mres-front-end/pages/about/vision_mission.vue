@@ -64,10 +64,26 @@
             adequate, and integrated system of basic education relevant to the goals of national development.
         </p>
     </div>
-</section>
+  </section>
 </template>
+<script>
+
+export default{
+    layout: 'about'
+}
+</script>
 
 <style>
+.background img {
+    width: 100%;
+    height: auto;
+    background-size: cover;
+    background-position: 0 -183px;
+    position: relative;
+    filter: brightness(69%);
+    z-index: -1;
+    display: block;}
+
 img.visionMissionImage {
     width: 100%;
     display: block;
@@ -80,9 +96,8 @@ img.visionMissionImage {
 
 img.logoDeped {
     display: block;
-    width: 150px;
-    margin: 2% auto 0;
-}
+    width: 186px;
+    margin: 2% auto 0;}
 
 .visionMission h5 {
     text-align: center;

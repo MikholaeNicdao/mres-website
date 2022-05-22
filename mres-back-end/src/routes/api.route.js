@@ -22,8 +22,8 @@ router.get('/Announcements/:id', apiController.getByIdAnnouncements)
 router.get('/LearningContinuityPlan', apiController.getAllLCP)
 
 // ADMIN POST API's
-router.post('/Faculty/add/member', upload.single('coverPhoto'),apiController.addFacultyMember)
-router.post('/SchoolActivities/add', upload.single('coverPhoto'),apiController.schoolActivitiesUpload)
+router.post('/Faculty/add/member', upload.single('coverPhoto'), apiController.addFacultyMember)
+router.post('/SchoolActivities/add', upload.single('coverPhoto'), apiController.schoolActivitiesUpload)
 router.post('/Announcements/add', upload.single('coverPhoto'), apiController.announcementsUpload)
 router.post('/LearningContinuityPlan/add', upload.single('coverPhoto'), apiController.LCPUpload)
 

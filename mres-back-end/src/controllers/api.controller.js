@@ -97,7 +97,7 @@ exports.getAllSchoolAnnouncements = (req,res)=>{
 }
 
 exports.getByIdAnnouncements = (req,res)=>{
-    apiModel.getByIdAnnouncements((err,data)=>{
+    apiModel.getByIdAnnouncements(req.params.id, (err,data)=>{
         if(err){
             res.status(404).json({success: false, description: data})
         }else{
@@ -268,7 +268,7 @@ exports.updateAnnouncements = (req,res)=>{
 }
 
 exports.updateLCP = (req,res)=>{
-    image = req.file.buffer.toString('base64')
+    let image = req.file.buffer.toString('base64')
 
     apiModel.updateAnnouncements(image,req.params.id,(err,result)=>{
         if(err){
