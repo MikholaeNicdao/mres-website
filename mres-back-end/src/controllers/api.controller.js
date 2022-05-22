@@ -1,7 +1,7 @@
 'use strict'
 
 const apiModel = require('../models/api.model')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const { json } = require('body-parser')
 
 // Create admin account

@@ -1,2 +1,4 @@
 mres-front-end/
 README.md
+node_modules
+.gitignore

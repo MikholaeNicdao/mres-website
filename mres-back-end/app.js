@@ -9,7 +9,7 @@ const bodyParser = require('body-parser')
 const apiRoute = require('./src/routes/api.route')
 
 require('dotenv').config()
-const port = process.env.PORT || 4000
+const port = process.env.HPORT
 
 // Enable all CORS
 app.use(cors())
@@ -18,7 +18,7 @@ app.use(cors())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
-// API'sapi
+// API
 app.use('/api/v1/', apiRoute)
 
 app.listen(port, ()=>{
