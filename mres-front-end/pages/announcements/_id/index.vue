@@ -14,8 +14,6 @@
             <div class="content">
               <p v-html="announcement.description"></p>    
             </div>
-            <nuxt-link :to="'/announcements/' + announcement.id + '/edit'"> Edit </nuxt-link>
-            <a @click="deleteAnnouncement(announcement.id)"> Delete </a>
           </div>
       </div>
       <div class="recentList" v-if="recentAnnouncements">

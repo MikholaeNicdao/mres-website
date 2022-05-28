@@ -1,6 +1,6 @@
 <template>
     <tr v-if="!editMode">
-        <th><img :src="`data:image/jpg; base64, ${faculty.coverPhoto}`"></th>
+        <th><img class="facultyImgPreview" :src="`data:image/jpg; base64, ${faculty.coverPhoto}`"></th>
         <th>{{ faculty.firstName }}</th>
         <th>{{ faculty.middleinitial }}</th>
         <th>{{ faculty.lastName }}</th>
@@ -43,5 +43,4 @@ export default {
 </script>
 
 <style>
-
 </style>

@@ -134,9 +134,10 @@ exports.addFacultyMember = (req,res)=>{
     let firstName = req.body.firstName
     let middleInitial = req.body.middleInitial
     let lastName = req.body.lastName
+    let category = req.body.category
     let position = req.body.position
 
-    apiModel.addFacultyMember(image,teacherPerGradeLevel,prefix, firstName, middleInitial, lastName, position, (err,result)=>{
+    apiModel.addFacultyMember(image,teacherPerGradeLevel,prefix, firstName, middleInitial, lastName, category, position, (err,result)=>{
         if(err){
             res.status(404).json({success: false, description: result})
         }else{
@@ -149,8 +150,9 @@ exports.schoolActivitiesUpload = (req,res)=>{
     let image = req.file.buffer.toString('base64')
     let title = req.body.title
     let description = req.body.description
+    let author = req.body.author
 
-    apiModel.schoolActivitiesUpload(image,title,description,(err,result)=>{
+    apiModel.schoolActivitiesUpload(image,title,description, author, (err,result)=>{
         if(err){
             res.status(404).json({success: false, description: result})
         }else{
@@ -163,8 +165,9 @@ exports.announcementsUpload = (req,res)=>{
     let image = req.file.buffer.toString('base64')
     let title = req.body.title
     let description = req.body.description
+    let author = req.body.author
 
-    apiModel.announcementsUpload(image,title,description,(err,result)=>{
+    apiModel.announcementsUpload(image,title,description, author, (err,result)=>{
         if(err){
             res.status(404).json({success: false, description: result})
         }else{
@@ -243,8 +246,9 @@ exports.updateSA = (req,res)=>{
     let image = req.file.buffer.toString('base64')
     let title = req.body.title
     let description = req.body.description
+    let author = req.body.author
 
-    apiModel.updateSA(image,title,description,req.params.id,(err,result)=>{
+    apiModel.updateSA(image,title, description, author, req.params.id,(err,result)=>{
         if(err){
             res.status(404).json({success: false, description: result})
         }else{
@@ -257,8 +261,9 @@ exports.updateAnnouncements = (req,res)=>{
     let image = req.file.buffer.toString('base64')
     let title = req.body.title
     let description = req.body.description
+    let author = req.body.author
 
-    apiModel.updateAnnouncements(image,title,description,req.params.id,(err,result)=>{
+    apiModel.updateAnnouncements(image,title, description, author, req.params.id,(err,result)=>{
         if(err){
             res.status(404).json({success: false, description: result})
         }else{
@@ -286,9 +291,10 @@ exports.updateFaculty = (req,res)=>{
     let firstName = req.body.firstName
     let middleInitial = req.body.middleInitial
     let lastName = req.body.lastName
+    let category = req.body.category
     let position = req.body.position
 
-    apiModel.updateFaculty(image,teacherPerGradeLevel,prefix, firstName, middleInitial, lastName, position, req.params.id,(err,result)=>{
+    apiModel.updateFaculty(image,teacherPerGradeLevel,prefix, firstName, middleInitial, lastName, category, position, req.params.id,(err,result)=>{
         if(err){
             res.status(404).json({success: false, description: result})
         }else{

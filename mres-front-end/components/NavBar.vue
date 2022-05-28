@@ -30,7 +30,7 @@
                   <ul>
                       <li><nuxt-link to="/about/vision_mission">Vision &#38; Mission</nuxt-link></li>
                       <li><nuxt-link to="/about/history">History</nuxt-link></li>
-                      <li><nuxt-link to="/faculty">Faculty</nuxt-link></li>
+                      <li><nuxt-link to="/about/faculty">Faculty</nuxt-link></li>
                       <li><a href="#">Continuity Plan</a></li>
                   </ul>
               </div>

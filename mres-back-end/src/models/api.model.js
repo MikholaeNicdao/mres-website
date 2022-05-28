@@ -50,7 +50,7 @@ class mresQuery{
     }
 
     static getAllSchoolActivities(result){
-        dbconnect.query('SELECT * FROM schoolactivities', (err,res)=>{
+        dbconnect.query('SELECT * FROM schoolactivities ORDER BY createdAt DESC', (err,res)=>{
             if(err){
                 result(null, err)
             }else{
@@ -70,7 +70,7 @@ class mresQuery{
     }
 
     static getAllAnnouncements(result){
-        dbconnect.query('SELECT * FROM announcements', (err,res)=>{
+        dbconnect.query('SELECT * FROM announcements ORDER BY createdAt DESC', (err,res)=>{
             if(err){
                 result(null, err)
             }else{
@@ -110,8 +110,8 @@ class mresQuery{
         })
     }
 
-    static addFacultyMember(coverPhoto ,TPGL, prefix, firstName, middleInitial, lastName, position, result){
-        dbconnect.query('INSERT INTO faculty (id, coverPhoto, teacherPerGradeLevel, prefix, firstName, middleInitial, lastName, position) VALUES (?,?,?,?,?,?,?,?)', ['', coverPhoto, TPGL, prefix, firstName, middleInitial, lastName, position], (err,res)=>{
+    static addFacultyMember(coverPhoto, TPGL, prefix, firstName, middleInitial, lastName, category, position, result){
+        dbconnect.query('INSERT INTO faculty (coverPhoto, teacherPerGradeLevel, prefix, firstName, middleInitial, lastName, category, position) VALUES (?,?,?,?,?,?,?,?)', [coverPhoto, TPGL, prefix, firstName, middleInitial, lastName, category, position], (err,res)=>{
             if(err){
                 result(null, err)
             }else{
@@ -120,8 +120,8 @@ class mresQuery{
         })
     }
 
-    static schoolActivitiesUpload(coverPhoto, title, description, result){
-        dbconnect.query('INSERT INTO schoolactivities (id, coverPhoto, title, description, createdAt) VALUES (?,?,?,?,?)', ['', coverPhoto, title, description, date], (err,res)=>{
+    static schoolActivitiesUpload(coverPhoto, title, description, author, result){
+        dbconnect.query('INSERT INTO schoolactivities (id, coverPhoto, title, description, author, createdAt) VALUES (?,?,?,?,?,?)', ['', coverPhoto, title, description, author, date], (err,res)=>{
             if(err){
                 result(null, err)
             }else{
@@ -130,8 +130,8 @@ class mresQuery{
         })
     }
 
-    static announcementsUpload(coverPhoto, title, description, result){
-        dbconnect.query('INSERT INTO announcements (id, coverPhoto, title, description, createdAt) VALUES (?,?,?,?,?)', ['', coverPhoto, title, description, date], (err,res)=>{
+    static announcementsUpload(coverPhoto, title, description, author, result){
+        dbconnect.query('INSERT INTO announcements (id, coverPhoto, title, description, author, createdAt) VALUES (?,?,?,?,?,?)', ['', coverPhoto, title, description, author, date], (err,res)=>{
             if(err){
                 result(null, err)
             }else{
@@ -202,8 +202,8 @@ class mresQuery{
     }
 
     // UPDATING DATA's
-    static updateSA(image,title,description,id, result){
-        dbconnect.query('UPDATE schoolactivities SET coverPhoto=?, title=?, description=?, createdAt=? WHERE id=?', [image,title,description,date,id],(err,res)=>{
+    static updateSA(image,title,description,author,id, result){
+        dbconnect.query('UPDATE schoolactivities SET coverPhoto=?, title=?, description=?, author=? WHERE id=?', [image,title,description,author,id],(err,res)=>{
             if(err){
                 result(null, err)
             }else{
@@ -212,8 +212,8 @@ class mresQuery{
         })
     }
 
-    static updateAnnouncements(image,title,description,id, result){
-        dbconnect.query('UPDATE announcements SET coverPhoto=?, title=?, description=?, createdAt=? WHERE id=?', [image,title,description,date,id],(err,res)=>{
+    static updateAnnouncements(image,title,description, author, id, result){
+        dbconnect.query('UPDATE announcements SET coverPhoto=?, title=?, description=?, author=? WHERE id=?', [image,title,description,author,id],(err,res)=>{
             if(err){
                 result(null, err)
             }else{
@@ -232,8 +232,8 @@ class mresQuery{
         })
     }
 
-    static updateFaculty(coverPhoto ,TPGL, prefix, firstName, middleInitial, lastName, position, id,result){
-        dbconnect.query('UPDATE faculty SET coverPhoto=?, teacherPerGradeLevel=?, prefix=?, firstName=?, middleInitial=?, lastName=?, position=? WHERE id=?', [ coverPhoto, TPGL, prefix, firstName, middleInitial, lastName, position, id], (err,res)=>{
+    static updateFaculty(coverPhoto ,TPGL, prefix, firstName, middleInitial, lastName, category, position, id,result){
+        dbconnect.query('UPDATE faculty SET coverPhoto=?, teacherPerGradeLevel=?, prefix=?, firstName=?, middleInitial=?, lastName=?, category=?, position=? WHERE id=?', [ coverPhoto, TPGL, prefix, firstName, middleInitial, lastName, category, position, id], (err,res)=>{
             if(err){
                 result(null, err)
             }else{

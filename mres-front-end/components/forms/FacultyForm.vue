@@ -3,7 +3,7 @@
     <form @submit.prevent="handleSubmit">
         <div class="createFacultyContainer">
             <button @click="deleteForm" type="button">
-                <img src="~/assets/images/delete.png">
+                <img src="/delete.png">
             </button>
             <div class="facultyDetails">
                 <div class="imageFaculty">
@@ -146,15 +146,95 @@ export default {
             return this.form.category == 'Teaching Staff' && 
                    this.form.position !== 'other' && 
                    this.showOtherField
-        },
-        formattedPosition(){
-            this.form
-            return 
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
+.facultyDetails {
+  width: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 25px;}
 
+.inputFaculty {
+  width: 80%;
+  margin-left: 43px;}
+
+.nameFaculty input[name="suffix"] {width: 250px;}
+
+.other {
+  width: 300px;}
+
+.positionFaculty input {
+    width: 300px;
+    padding: 6px;
+    border: none;
+    font-size: 15px;
+}
+
+.imageFaculty {
+  text-align: center;
+  margin-left: 20px;
+}
+
+.inputFaculty {
+  width: 80%;
+  margin-left: 43px;}
+
+img.addFacultyImage {
+  width: 100px;
+  /* My Addition */
+  border-radius: 50%;
+  object-fit: cover;
+  height: 100px;
+}
+
+.nameFaculty table, .positionFaculty table {
+  margin-top: 5px;}
+
+.nameFaculty input[name=firstName],
+.nameFaculty input[name=lastName] {
+  width: 250px;}
+
+.nameFaculty input[type="text"],
+.positionFaculty select {
+  padding: 6px;
+  border: none;
+  font-size: 15px;}
+
+.nameFaculty input[name="middleInitial"] {
+  width: 100px;}
+
+.nameFaculty th,
+.positionFaculty th {
+    padding: 0px 3px;}
+
+select#facultyPosition, 
+.title, 
+.other {
+  width: 279px;}
+
+.createFacultyContainer {
+  width: 100%;
+  display: flex; 
+  background: #e6e6e6;
+  border-radius: 10px;
+  margin: 32px auto;
+  flex-direction: row-reverse;
+  overflow: auto;
+  text-align: left;}
+
+.createFacultyContainer button {
+  height: 34px;
+  border: none;
+  background: no-repeat;
+  margin: 20px;}
+
+.createFacultyContainer button img {
+  width: 30px;}
 </style>

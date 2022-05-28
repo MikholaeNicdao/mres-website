@@ -1,5 +1,5 @@
 <template>
-  <ActForm @on-submit="updateAnnouncement" :postType="'Announcement'" />
+  <PostForm @on-submit="updateAnnouncement" :postType="'Announcement'" />
 </template>
 
 <script>

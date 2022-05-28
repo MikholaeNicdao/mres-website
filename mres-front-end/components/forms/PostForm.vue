@@ -96,8 +96,9 @@ export default {
     toFormData(){
       const formData = new FormData()
       formData.append('title', this.form.title);
-      formData.append('description', `${this.form.body}_${this.form.author}`);
+      formData.append('description', this.form.body);
       formData.append('coverPhoto', this.form.coverPhoto);
+      formData.append('author', this.form.author)
       return formData
     },
     handleFileUpload(event){

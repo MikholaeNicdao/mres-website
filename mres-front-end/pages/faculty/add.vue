@@ -105,6 +105,7 @@ export default {
       formData.append('firstName', form.firstName);
       formData.append('middleInitial', form.middleinitial);
       formData.append('lastName', form.lastName);
+      formData.append('category', form.category);
       formData.append('position', form.position);
       this.$store.dispatch('faculty/addFaculty', formData)
     },

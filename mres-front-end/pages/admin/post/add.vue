@@ -1,5 +1,5 @@
 <template>
-  <ActForm @on-submit="submit" />
+  <PostForm @on-submit="submit" />
 </template>
 
 <script>

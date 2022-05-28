@@ -39,13 +39,6 @@ export const mutations = {
             announcement.createdAt = formattedDate
         }
     },
-    setAuthor(state){
-        for(const announcement of state.announcements){
-            const i = announcement.description.lastIndexOf('_');
-            announcement['author'] = announcement.description.slice(i+1)
-            announcement['description'] = announcement.description.slice(0,i)
-        }
-    }
 }
 
 export const actions = {
@@ -55,7 +48,6 @@ export const actions = {
 
             commit('setAnnouncements', res.data.description)
             commit('setDateString')
-            commit('setAuthor')
 
         }catch (error) {
             console.log(error)

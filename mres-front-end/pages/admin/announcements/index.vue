@@ -3,7 +3,7 @@
     <div id="adminAnnouncementHeader">
         <h3>Announcements</h3>
         <div>
-            <nuxt-link to="/post/add"> Create New</nuxt-link>
+            <nuxt-link to="/admin/post/add"> Create New</nuxt-link>
             <div class="searchBar">
                 <form>
                     <input v-model="search" type="text" name="search" id="search">
@@ -128,7 +128,11 @@ div#adminAnnouncementContent {
   margin: 10px 0;}
 
 .adminContentContainer img {
-  width: 100%;}
+  width: 100%;
+  /* My Additions */
+  object-fit: cover;
+  height: 180px;
+}
 
 .adminContent {
   text-align: center;
@@ -140,7 +144,12 @@ div#adminAnnouncementContent {
 
 .adminContentDetails h4 {
   color: #329bd6;
-  font-size: 18px;}
+  font-size: 18px;
+  /* My Additions */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .adminContentDetails p {
   color: gray;

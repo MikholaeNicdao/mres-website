@@ -3,7 +3,7 @@
     <div id="adminAnnouncementHeader">
         <h3>Activities</h3>
         <div>
-            <nuxt-link to="/post/add"> Create New</nuxt-link>
+            <nuxt-link to="/admin/post/add"> Create New</nuxt-link>
             <div class="searchBar">
                 <form>
                     <input type="text" name="search" id="search">
