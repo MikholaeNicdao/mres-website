@@ -8,7 +8,10 @@
             </div>
             <img :src="`data:image/jpg; base64, ${announcement.coverPhoto}`">
             <div class="byline">
-              <div class="author"><p>By</p><p id="author"> {{ announcement.author }}</p></div>
+              <div class="author">
+                <p>By</p>
+                <p id="author"> {{ announcement.author }}</p>
+              </div>
               <div class="postDate"><p>Posted {{ announcementDate }} </p></div>
             </div>
             <div class="content">
@@ -22,15 +25,13 @@
           <img :src="`data:image/jpg; base64, ${announcement.coverPhoto}`">
           <div class="recentHeadline">
             <h5>{{ announcement.title }}</h5>
-            <p>Posted {{ announcement.createdAt }}</p>
+            <p>Posted {{ announcement.formattedCreatedAt }}</p>
             <nuxt-link :to="'/announcements/' + announcement.id">Read more</nuxt-link>
           </div>
         </div>         
       </div>
   </div>
-  <div v-else>
-    Loading...
-  </div>
+  <LoadingDiv v-else />
 </template>
 
 <script>
@@ -67,3 +68,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.recentHeadline a {
+  color: #c2bd3d;
+  font-size: 14px;
+}
+</style>

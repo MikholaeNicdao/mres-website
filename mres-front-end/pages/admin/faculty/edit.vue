@@ -1,19 +1,12 @@
 <template>
-    <section class="admin">
-        <div class="sidebar adminSidebar">
-            <ul>
-                <li><a href="#">Event Schedule</a></li>
-                <li><nuxt-link to="/admin/faculty"> Organization List </nuxt-link></li>
-                <li><nuxt-link to="/admin/announcements">Announcements</nuxt-link></li>
-                <li><nuxt-link to="/admin/activities"> School Activities</nuxt-link></li>
-                <li><a href="#">Account</a></li>
-            </ul>
-        </div>
+    <div style="width:100%;display:flex">
+        <!-- <AdminSideBar :currentPage="currentPage" /> -->
         <div class="facultyScrolldown">
             <h3 style="font-size: 25px; font-weight: normal; color: #329bd6;">Organization List</h3>
             <div class="searchBar">
                 <form>
-                    <input type="text" name="search" id="search">
+                    <input type="text" name="search" id="search"
+                        v-model="search">
                     <button type="submit"><img src="/searchBtn.png"></button>
                 </form>
             </div>
@@ -35,8 +28,7 @@
                 <form @submit.prevent="updateFaculty(form)" method="post">
                     <div class="createFacultyHeader">
                         <div class="editFacultyButtons">
-                            <!-- <button type="button" id="createNewFaculty"><img src="/add.png" >Add New</button> -->
-                            <button id="saveFacultyBtn">Save</button>
+                            <button id="saveFacultyBtn">Update</button>
                         </div>
                     </div>
                     <div class="createFacultyContainer">
@@ -124,11 +116,12 @@
                 </client-only>
             </div>
         </div>
-    </section>
+    </div>
 </template>
 
 <script>
 export default {
+    layout: 'adminView',
     async mounted(){
         await this.$store.dispatch('faculty/fetchFaculty')
     },
@@ -165,6 +158,8 @@ export default {
             position: "",
             other: "",
           },
+          search: "",
+          currentPage: this.$router.currentRoute.path
         }
     },
     methods: {
@@ -248,11 +243,18 @@ export default {
             fetch("/addFacultyImage.png")
             .then(response => response.blob())
             .then(data => this.form.coverPhoto = data)
+        },
+        containsSearchString(){
+
         }
     },
     computed: {
         members(){
-            return this.$store.state.faculty.facultyList
+            if(this.search.trim()==="") 
+                return this.$store.state.faculty.facultyList
+                
+            return this.$store.state.faculty.facultyList.filter(member =>
+                this.memberFullName(member).includes(this.search))
         },
         photoPreview(){
             return this.form.coverPhotoPreview
@@ -269,18 +271,19 @@ export default {
                    this.form.position !== 'other' && 
                    this.showOtherField
         }
-    }
+    },
 }
 </script>
 
 <style scoped>
 .facultyScrolldown {
-    width: 25%; 
+    width: 30%; 
     margin: 3% 0 3% 1%; 
     border-right: 1px solid #e9e9e9; 
     padding-right: 1.5%;
+    /* max-height: 85vh; */
     /* My Additions */
-    max-height: 570px;
+    height: 95vh;
     overflow-y: scroll;
 }
 .searchBar {
@@ -333,6 +336,11 @@ export default {
 .selected{
     background: #CCCCCC;
 }
+
+section.admin{
+    display: flex;
+}
+
 .adminFacultyInfo {
     margin-left: 15px;
 }
@@ -369,7 +377,7 @@ button#saveFacultyBtn:hover {
     color: #1d6995;
 }
 .editFaculty {
-    width: 55%; 
+    width: 70%; 
     padding: 3% 4% 3% 1.5%;
 }
 .editFacultyButtons {

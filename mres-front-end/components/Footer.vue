@@ -40,20 +40,20 @@
 }
 
 .footerContent img {
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     margin: 0 5px;
 }
 
 .footerContent p {
     color: white;
     padding-top: 1px;
-    font-size: 16px;
+    font-size: 12px;
 }
 
 p.connectText {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 12px;
 }
 
 .email {
@@ -65,4 +65,13 @@ p.connectText {
     padding-top: 26px;
 }
 
+.socialMedia p {
+    padding-top: 4px;
+    font-size: 12px;
+}
+
+.socialMedia img {
+    width: 17px;
+    height: 17px;
+}
 </style>

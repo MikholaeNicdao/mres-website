@@ -1,10 +1,14 @@
 import axios from 'axios'
+import { formatPost } from '../plugins/textformatter.js'
 
 export const state = () => ({
     activities: [],
     recentActivities: [],
+    pageActivities: [],
     targetActivity: [],
-    requestedPage: 1
+    requestedPage: 1,
+    activitiesPerPage: 8,
+    pageCount: 0
 })
   
 export const mutations = {
@@ -17,46 +21,61 @@ export const mutations = {
     setTargetActivity(state, activity){
         state.targetActivity = activity
     },
-    setPage(state, page){
-        state.requestedPage = page
+    setPageActivities(state, activities){
+        state.pageActivities = activities
     },
-    setDateString(state){
+    formatActivities(state){
         for(const activity of state.activities){
-            const date = new Date(activity.createdAt)
-            const formattedDate = 
-            `
-                ${date.toLocaleString('default', { month: 'long' })} 
-                ${date.getDate()}, 
-                ${date.getFullYear()}
-            `
-            activity.createdAt = formattedDate
+            activity = formatPost(activity)
         }
+        for (const activity of state.recentActivities) {
+            activity = formatPost(activity)
+        }
+        for (const activity of state.pageActivities) {
+            activity = formatPost(activity)
+        }
+        state.targetActivity = formatPost(state.targetActivity)
     }
 }
 
 export const actions = {
-    async fetchActivities({ dispatch, commit }){
+    async fetchActivities({ commit }){
         try {
             const res = await axios.get("http://localhost:3306/api/v1/SchoolActivities")
 
             commit('setActivities', res.data.description)
-            commit('setDateString')
+            commit('formatActivities')
 
         }catch (error) {
             console.log(error)
         }
     },
-    async fetchTargetActivity({ dispatch, commit }, id){
+    async fetchTargetActivity({ commit }, id){
         try {
             const res = await axios.get("http://localhost:3306/api/v1/SchoolActivities/" + id)
             
             commit('setTargetActivity', res.data.description[0])
+            commit('formatActivities')
 
         }catch (error) {
             console.log(error)
         }
     },
-    async addActivity({dispatch}, formData){
+    async fetchPageActivities({ commit }, page){
+        try {
+            const res = await axios.get("http://localhost:3306/api/v1/SchoolActivities/page/" + page)
+
+            console.log(res.data.description)
+            
+            commit('setPageActivities', res.data.description)
+            commit('setPageCount', res.data.pageCount)
+            commit('formatActivities')
+
+        }catch (error) {
+            console.log(error)
+        }
+    },
+    async addActivity({ dispatch }, formData){
         try {
             await axios.post("http://localhost:3306/api/v1/SchoolActivities/add", formData)
 
@@ -76,7 +95,7 @@ export const actions = {
             console.log(error.message)
         }
     },
-    async deleteActivity({dispatch}, id){
+    async deleteActivity({ dispatch }, id){
         try {
             await axios.delete("http://localhost:3306/api/v1/SchoolActivities/remove/" + id)
 
@@ -95,33 +114,5 @@ export const actions = {
         }
 
         commit('setRecentActivities', recents)
-    },
-    setPage({ commit }, page){
-        commit('setPage', page)
-    },
-    setAuthors({ dispatch }, activities){
-        for(const activity of activities){
-            dispatch('setAuthor', activity)
-        }
     }
 }
-
-export const getters = {
-    getPageActivities: (state) => {
-        // Subtract 1 to requested page to start from index
-        // of activity array
-        const start = (state.requestedPage - 1) * 6
-        const end = state.requestedPage * 6
-        return state.activities.slice(start, end)
-    },
-    getMaxPageCount: (state) => {
-        // Explanation: Each page has 6 activity [a],
-        // If # of [a] divided by 6 has a remainder, add 
-        // 1 extra page for remaining [a]
-        const hasRemainder = state.activities.length % 6 !== 0
-        const extraPage = (hasRemainder) ? 1 : 0
-        return Math.floor(state.activities.length/6) + extraPage
-    }
-}
-
-

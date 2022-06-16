@@ -9,7 +9,7 @@
               <img :src="`data:image/jpg; base64, ${activity.coverPhoto}`">
               <div class="byline">
                   <div class="author"><p>By</p><p id="author">{{ activity.author }}</p></div>
-                  <div class="postDate"><p>Posted {{ activityDate }} </p></div>
+                  <div class="postDate"><p>Posted {{ activity.formattedCreatedAt }} </p></div>
               </div>
               <div class="content">
                   <p v-html="activity.description"> </p>  
@@ -22,7 +22,7 @@
               <img :src="`data:image/jpg; base64, ${activity.coverPhoto}`">
               <div class="recentHeadline">
                   <h5>{{ activity.title }}</h5>
-                  <p>Posted {{ activity.createdAt }}</p>
+                  <p>Posted {{ activity.formattedCreatedAt }}</p>
                   <nuxt-link :to="'/activities/' + activity.id">Read more</nuxt-link>
               </div>
           </div>         
@@ -61,12 +61,7 @@ export default {
     },
     activity() {
       return this.$store.state.activity.activities.find(a => a.id == this.$route.params.id )
-    },
-    activityDate(){
-      const date = new Date(this.activity.createdAt)
-      const formattedDate = `${date.toLocaleString('default', { month: 'long' })} ${date.getDate()}, ${date.getFullYear()}`
-      return formattedDate
-    },
+    }
   }
 }
 </script>

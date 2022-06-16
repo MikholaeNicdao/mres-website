@@ -29,7 +29,12 @@
 </template>
 <script>
 export default {
-    layout: 'about'
+    layout: 'about',
+    head(){
+        return{
+            title: "History - Mauaque Resettlement Elementary School"
+        }
+    },
 }
 </script>
 <style>

@@ -216,7 +216,7 @@
             </div>
         </div>
 
-        <div id="leaveApplication" class="serviceDiv">
+        <div id="travelApplication" class="serviceDiv">
             <h3>Application of Authority to Travel Abroad</h3>
             <div>
                 <table class="serviceTable" style="width: 100%;">
@@ -394,13 +394,12 @@
     </div>
 </section>
 </template>
-
 <script>
 export default {
-
+    head(){
+        return{
+            title: "Services - Mauaque Resettlement Elementary School"
+        }
+    },
 }
 </script>
-
-<style>
-
-</style>

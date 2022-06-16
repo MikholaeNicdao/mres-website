@@ -1,13 +1,13 @@
 <template>
-  <div id="adminAnnouncement">
+  <div id="adminAnnouncement" v-if="dataResolved">
     <div id="adminAnnouncementHeader">
         <h3>Announcements</h3>
         <div>
-            <nuxt-link to="/admin/post/add"> Create New</nuxt-link>
+            <nuxt-link to="/admin/post/add"> <img src="/add.png"> Create New</nuxt-link>
             <div class="searchBar">
                 <form>
                     <input v-model="search" type="text" name="search" id="search">
-                    <button type="submit"></button>
+                    <button type="submit"><img src="/searchBtn.png"></button>
                 </form>
             </div>
         </div>
@@ -18,7 +18,7 @@
           <img :src="'data:image/jpg; base64, ' + announcement.coverPhoto">
           <div class="adminContentDetails">
               <h4> {{ announcement.title }}</h4>
-              <p>Posted {{ announcement.createdAt }}</p>
+              <p>Posted {{ announcement.formattedCreatedAt }}</p>
               <div>
                   <nuxt-link :to="'/announcements/' + announcement.id" class="readMore"> Read More </nuxt-link>
                   <nuxt-link :to="'/admin/announcements/' + announcement.id + '/edit'" class="edit"> Edit </nuxt-link>
@@ -28,14 +28,23 @@
       </div>
     </div>
   </div>
+  <LoadingDiv v-else />
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import loading from '~/plugins/loading.js'
+
 export default {
   layout: 'adminView',
-  async beforeCreate(){
+  mixins: [loading],
+  head(){
+      return{
+        title: "Announcements[Admin] - Mauaque Resettlement Elementary School"
+      }
+    },
+  async mounted(){
     await this.$store.dispatch('announcement/fetchAnnouncements')
+    this.setDataResolved()
   },
   data(){
     return {
@@ -43,12 +52,6 @@ export default {
     }
   },
   methods: {
-    nextPage(){
-        this.$store.dispatch('announcement/setPage', this.requestedPage + 1)
-    },
-    prevPage(){
-      this.$store.dispatch('announcement/setPage', this.requestedPage - 1)
-    },
     deleteAnnouncement (id) {
       this.$store.dispatch('announcement/deleteAnnouncement', id)
     }
@@ -57,20 +60,8 @@ export default {
     announcements () {
       return this.$store.state.announcement.announcements
     },
-    requestedPage(){
-      return this.$store.state.announcement.requestedPage
-    },
-    isLastPage(){
-      return this.requestedPage === this.lastPage
-    },
-    ...mapGetters({
-      pageAnnouncements: 'announcement/getPageAnnouncements',
-      lastPage: 'announcement/getMaxPageCount'
-    }),
     filteredAnnouncements(){
-      const fAnnouncements = []
-
-      if (!this.search) return this.pageAnnouncements
+      if (!this.search.trim().length === 0) return this.announcements
 
       return this.announcements.filter(a => 
         a.title.includes(this.search) || 
@@ -84,7 +75,10 @@ export default {
 <style>
 div#adminAnnouncement {
   display: flex;
-  flex-direction: column;}
+  flex-direction: column;
+  padding: 3% 4%;
+  width: 80%;
+}
 
 #adminAnnouncement{
   padding: 3% 4%;
@@ -94,7 +88,8 @@ div#adminAnnouncementHeader {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  align-items: flex-end;}
+  align-items: center;
+}
 
 div#adminAnnouncementHeader h3 {
   font-size: 25px;
@@ -104,11 +99,19 @@ div#adminAnnouncementHeader div {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  padding-left: 60px;}
+}
 
 div#adminAnnouncementHeader div a {
   color: #329bd6;
-  font-size: 17px;}
+  font-size: 17px;
+}
+
+div#adminAnnouncementHeader div a img{
+  width: 18px;
+  margin-right: 5px;
+  float: left;
+  border-radius: 0;
+}
 
 div#adminAnnouncementHeader div a:hover {
   color: #1d6995;}

@@ -4,24 +4,69 @@
       <div class="postContainer">
         <div class="textContainer">
           <button type="submit">Post</button>
-          <input v-model="form.title" type="text" name="articleTitle" id="articleTitle" placeholder="Title">
+          <div class="articleTitle">
+            <span class="incorrectInput"
+              v-if="!validations.title"> 
+              This is a required field 
+            </span>
+            <input type="text" name="articleTitle" id="articleTitle" placeholder="Title"
+              @keypress="validations.title = true"
+              @focus="enableFormatBtns = false" 
+              @blur="enableFormatBtns = true" 
+              v-model="form.title"
+              :class='{ incorrectInput:!validations.title }'>
+          </div>
           <div class="selectArticleType">
-            <input v-model="form.author" type="text" name="articleAuthor" id="articleAuthor" placeholder="Author">
-            <select v-if="isEditMode" v-model="type" name="articleType" id="articleType" disabled>
-              <option v-if="postType === 'Activity'" value="Activity">School Activity</option>
-              <option v-if="postType === 'Announcement'" value="Announcement">Announcement</option>
-            </select>
-            <select v-else v-model="type" name="articleType" id="articleType" :disabled="isEditMode">
-              <option value="Activity">School Activity</option>
-              <option value="Announcement">Announcement</option>
-            </select>
+            <span class="incorrectInput"
+              v-if="!validations.author"> 
+              This is a required field 
+            </span>
+            <div style="width:100%; display:flex">
+              <input type="text" name="articleAuthor" id="articleAuthor" placeholder="Author"
+                v-model="form.author"
+                @focus="enableFormatBtns = false" 
+                @blur="enableFormatBtns = true"
+                @keypress="validations.author = true"
+                :class='{ incorrectInput:!validations.author }'>
+              <select name="articleType" id="articleType" disabled
+                v-if="isEditMode" 
+                v-model="type">
+                <option v-if="postType === 'Activity'" value="Activity">School Activity</option>
+                <option v-if="postType === 'Announcement'" value="Announcement">Announcement</option>
+              </select>
+              <select name="articleType" id="articleType" :disabled="isEditMode"
+                v-else 
+                v-model="type">
+                <option value="Activity">School Activity</option>
+                <option value="Announcement">Announcement</option>
+              </select>
+            </div>
           </div>
           <div class="emphasis">
-            <button type="button"><b>B</b></button>
-            <button type="button"><i>I</i></button>
-            <button type="button">u</button>
+            <span class="incorrectInput"
+              :style="validations.body ? 'visibility:hidden;' : ''"> 
+              This is a required field 
+            </span>
+            <div :class="{ disableContents:!enableFormatBtns }">
+              <button type="button"
+                @click="formatWrap('b')">
+                <b>B</b>
+              </button>
+              <button type="button"
+                @click="formatWrap('i')">
+                <i>I</i>
+              </button>
+              <button type="button"
+                @click="formatWrap('u')">
+                <span style="text-decoration:underline;">u</span>
+              </button>
+            </div>
           </div>
-          <textarea v-model="form.body" name="articleTextarea" id="articleTextarea" cols="30" rows="10"></textarea>
+          <textarea name="articleTextarea" id="articleTextarea" cols="30" rows="10"
+            @keypress="validations.body = true"
+            v-model="form.body"
+            :class='{ incorrectInput:!validations.body }'>
+          </textarea>
         </div>
         <div class="imageContainer">
           <div class="imageBox">
@@ -35,14 +80,16 @@
       </div>
     </form>
   </div>
+  <LoadingDiv v-else />
 </template>
 
 <script>
 import validations from '~/plugins/validations.js'
+import loading from '~/plugins/loading.js'
 
 export default {
   layout: 'adminView',
-  mixins: [validations],
+  mixins: [validations, loading],
   emits: ['on-submit'],
   props: ['postType'],
   async mounted(){
@@ -54,8 +101,8 @@ export default {
         : "announcement/fetchTargetAnnouncement"
 
       await this.$store.dispatch(fetchAction, this.$route.params.id)
+      this.setDataResolved()
       this.assignDefaultValues()
-      this.dataResolved = true
     }
     else {
       this.form.coverPhoto = this.defaultImage
@@ -65,6 +112,7 @@ export default {
   },
   data(){
     return {
+        isValidData: false,
         form: 
         {
           title : "",
@@ -72,15 +120,24 @@ export default {
           coverPhoto: "",
           author: "",
         },
+        validations:{
+          title: true,
+          author: true,
+          body: true
+        },
         coverPhotoPreview: "",
         type: this.postType || "Activity",
         defaultImage: "",
         isEditMode: !!this.$route.params?.id,
-        dataResolved: false
+        enableFormatBtns: false
     }
   },
   methods: {
     submit(){
+      this.validateData()
+      if(!this.isValidData) {
+        return
+      }
       const formData = this.toFormData(this.form)
 
       this.$emit('on-submit', { formData, type: this.type })
@@ -118,6 +175,28 @@ export default {
       this.form.coverPhoto = this.defaultImage
       this.coverPhotoPreview = URL.createObjectURL(this.defaultImage);
     },
+    formatWrap(wrapTag){
+        let txtarea = document.getElementById("articleTextarea");
+        let start = txtarea.selectionStart;
+        let finish = txtarea.selectionEnd;
+        let allText = txtarea.value;
+
+        let sel = allText.substring(start, finish);
+
+        let startTag = `[${wrapTag}]`
+        let endTag = `[/${wrapTag}]`
+
+        if (start === finish) 
+          sel = "Your Formatted text"
+
+        let newText=allText.substring(0, start) + startTag + sel + endTag + allText.substring(finish, allText.length);
+
+        this.form.body=newText;
+
+        txtarea.focus()
+
+
+    },
     async fetchDefaultImage(){
       await fetch("/school.jpg")
       .then(response => response.blob())
@@ -127,6 +206,18 @@ export default {
         const res = await fetch(dataUrl);
         const blob = await res.blob();
         return new File([blob], fileName, { type: 'image/png' });
+    },
+    validateData(){
+      this.isValidData = true
+      for (let key in this.form) {
+        if (this.form.hasOwnProperty(key)) {
+          if(key === 'coverPhoto') continue
+          if (this.isEmpty(this.form[key])){
+            this.validations[key] = false
+            this.isValidData = false
+          }  
+        }
+      }
     }
   },
   computed:{
@@ -171,18 +262,25 @@ export default {
   margin: 5px;
   color: white;}
 
+div.articleTitle{
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #e6e6e6;
+  margin-top: 20px;
+}
+
 input#articleTitle {
   width: 100%;
   font-size: 22px;
   padding: 5px;
   border: none;
-  border-bottom: 1px solid #e6e6e6;
-  margin-top: 20px;
-  font-weight: bold;}
+  font-weight: bold;
+}
 
 .selectArticleType {
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   margin-top: 5px;
   border-bottom: 1px solid #e6e6e6;
@@ -206,7 +304,8 @@ select#articleType {
   border-bottom: 1px solid #e6e6e6;
   width: 100%;
   display: flex;
-  justify-content: flex-end;}
+  justify-content: space-between;
+}
 
 .emphasis button {
   font-size: 16px;
@@ -246,4 +345,10 @@ textarea#articleTextarea {
 
 .textContainer button[type='submit']:hover {
   background: #1d6995;}
+
+.disableContents button{
+  pointer-events:none;
+  color:#AAA;
+  background:#F5F5F5;
+}
 </style>

@@ -26,13 +26,14 @@
 
 <script>
 import validations from '~/plugins/validations.js'
+import loading from '~/plugins/loading.js'
 
 export default {
-  mixins: [validations],
+  mixins: [validations, loading],
   async mounted(){
     if(this.$route.params?.id){
       await this.$store.dispatch("announcement/fetchTargetAnnouncement", this.$route.params.id)
-      this.dataResolved = true
+      this.setDataResolved()
       this.assignDefaultValues()
     }
     else this.dataResolved = true
@@ -45,7 +46,6 @@ export default {
         coverPhoto : ""
       },
       coverPhotoPreview: "",
-      dataResolved: false
     }
   },
   methods: {

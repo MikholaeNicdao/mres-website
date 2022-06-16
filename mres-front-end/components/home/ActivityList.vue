@@ -2,80 +2,68 @@
   <section class="activitySection">
     <h4>School Activities</h4>
     <div class="activities">
-        <button type="button" class="activityButton"><div class="leftButton"></div></button>
         <div class="activityList">
-            <div class="activityContainer">
-                <a href="#" class="activity">
-                    <img src="~assets/images/student.jpeg" alt="">
+            <div class="activityContainer" 
+                v-for="activity in activities" 
+                :key="activity.id">
+                <nuxt-link :to="`/activities/${activity.id}`" class="activity">
+                    <img :src="`data:image/jpg; base64, ${activity.coverPhoto}`" :alt="activity.title">
                     <div class="activityOverlay">
                         <div class="activityOverlayContent">
-                            <h5>School Celebration</h5>
-                            <p>Septermeber 17, 2021</p>
+                            <h5>{{ activity.title }}</h5>
+                            <p>{{ activity.formattedCreatedAt }}</p>
                         </div>
                     </div>
-                </a>
+                </nuxt-link>
             </div>
-            <div class="activityContainer">
-                <a href="#" class="activity">
-                    <img src="~assets/images/student.jpeg" alt="">
-                    <div class="activityOverlay">
-                        <div class="activityOverlayContent">
-                            <h5>School Celebration awwejiojj sdfjsdfjsdifjsdifj sdjfsdifjsdifj</h5>
-                            <p>Septermeber 17, 2021</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="activityContainer">
-                <a href="#" class="activity">
-                    <img src="~assets/images/student.jpeg" alt="">
-                    <div class="activityOverlay">
-                        <div class="activityOverlayContent">
-                            <h5>School Celebration dfgdfg dgdfggdfg dgfgdfg</h5>
-                            <p>Septermeber 17, 2021</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="activityContainer">
-                <a href="#" class="activity">
-                    <img src="~assets/images/student.jpeg" alt="">
-                    <div class="activityOverlay">
-                        <div class="activityOverlayContent">
-                            <h5>School Celebration</h5>
-                            <p>Septermeber 17, 2021</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            
         </div>
-        <button type="button" class="activityButton"><div class="rightButton"></div></button>
     </div>
     
 </section>
 </template>
+<script>
+export default {
+    computed:{
+        activities(){
+            return this.$store.state.activity.recentActivities
+        }
+    }
+}
+</script>
 <style>
 .activitySection {
     display: inline-block;
-    padding: 6% 3% 10%;
-    width: 100vw;}
+    padding: 57px 4% 85px;
+    width: 100vw;
+}
+
+.activitySection h4 {
+    color: #404040;
+    font-size: 18px;
+    padding-bottom: 25px;
+}
 
 .activityList {
+    margin: 0 auto;
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    overflow: hidden;}
+}
+
+.activityContainer {
+    width: calc(100%/4);
+    padding: 10px;
+    float: left;
+}
 
 .activityContainer img {
-    width: 400px;
-    height: auto;}
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+}
 
 .activities {
-    display: flex;
-    max-height: 300px;
-    flex-direction: row;
-    justify-content: space-around;}
+    display: block;
+    width: 100%;
+}
 
 .activityOverlay {
     position: absolute; 
@@ -83,11 +71,13 @@
     display: flex;}
 
 .activityOverlay h5 {
-    font-size: 30px; 
-    padding-bottom: 5px;}
+    font-size: 18px;
+    padding-bottom: 5px;
+}
 
 .activityOverlay p {
-    font-size: 16px;}
+    font-size: 14px;
+}
 
 .activityOverlayContent {
     position: absolute; 
@@ -101,13 +91,14 @@
 
 .activityContainer:hover a .activityOverlay {
     opacity:1; 
-    transition: .5s;}
+    transition: .5s;
+}
 
 .activityContainer:hover img {
     position: relative; 
     filter:brightness(50%); 
     transition: .5s; 
-    width: 430px;}
+}
 
 button.activityButton {
     width: 60px;
@@ -117,16 +108,4 @@ button.activityButton {
 
 .activityButton:hover {
     background: #a6a6a6;}
-
-.activityButton .leftButton {
-    margin: 15px;
-    border-top: 40px solid transparent;
-    border-bottom: 40px solid transparent;
-    border-right: 30px solid gray;}
-
-.activityButton .rightButton {
-    margin: 15px;
-    border-top: 40px solid transparent;
-    border-bottom: 40px solid transparent;
-    border-left: 30px solid gray;}
 </style>

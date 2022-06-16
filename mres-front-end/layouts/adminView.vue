@@ -1,40 +1,56 @@
 <template>
     <div class="body">
-        <NavBar />
-        <section class="admin">
-            <div class="sidebar adminSidebar">
-                <ul>
-                    <li><a href="#">Event Schedule</a></li>
-                    <li><nuxt-link to="/admin/faculty"> Organization List </nuxt-link></li>
-                    <li><nuxt-link to="/admin/announcements">Announcements</nuxt-link></li>
-                    <li><nuxt-link to="/admin/activities"> School Activities</nuxt-link></li>
-                    <li><a href="#">Account</a></li>
-                </ul>
+        <div class="adminHeader">
+            <div class="branding">
+                <nuxt-link to="/admin" class="branding">
+                    <img class="adminLogo" src="~/assets/images/mauaqueLogo.png">
+                    <div class="adminName">
+                        <h5>Mauaque Resettlement Elementary School</h5>
+                    </div>
+                </nuxt-link>
             </div>
+        </div>
+        <section class="admin">
+            <AdminSideBar :currentPage="currentPage" />
             <Nuxt />
         </section>
-        <Footer />
     </div>
 </template>
 
-<style>
+<script>
+export default {
+    data(){
+        return{
+            currentPage: this.$router.currentRoute.path
+        }
+    },
+    watch:{
+        $route(to){
+            this.currentPage = to.path
+        }
+    } 
+}
+</script>
+
+<style scoped>
 section.admin {
-    display: flex;}
-
-div.adminSidebar {
-    width: 20%;
-    background: #e6e6e6;
-    padding: 3% 1% 3% 3%;
-    overflow-wrap: anywhere;
-    min-width: 135px;}
-
-div.adminSidebar li {
-    list-style:none; 
-    padding: 5px;}
-
-div.adminSidebar a {
-    color: black;font-size: 15px;}
-
-div.adminSidebar a:hover {
-    color: #329bd6;}
+    display: flex;
+    width: 100%;
+}
+.adminHeader {
+    background: #329bd6;
+    padding: 10px 3%;
+    width: 100%;
+}
+.adminLogo {
+    width: 28px;
+}
+.adminName h5 {
+    color: white;
+    font-size: 14px;
+    padding-left: 6px;
+}
+.flex{
+    display: flex;
+}
 </style>

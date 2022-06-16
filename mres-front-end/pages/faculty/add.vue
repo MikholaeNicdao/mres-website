@@ -58,19 +58,10 @@ export default {
       this.addForm()
     },
     formatForm(form){
-      const prefix = {
-        'School Division Officer': 'otherSDO_',
-        'Teaching Staff': 'otherTS_',
-        'Non-Teaching Staff': 'otherNTS_',
-        'School Support Staff': 'otherSSS_',
-      }
       if (!form.coverPhoto) {
         form.coverPhoto = this.defaultImage
       }
 
-      // Append a prefix to position to determine
-      // the category of the position when fetched 
-      // from DB
       if (form.position === 'other'){
         form.position = prefix[form.category] + form.other
       }

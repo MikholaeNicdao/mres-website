@@ -69,7 +69,12 @@
 <script>
 
 export default{
-    layout: 'about'
+    layout: 'about',
+    head(){
+        return{
+            title: "Vision & Mission - Mauaque Resettlement Elementary School"
+        }
+    },
 }
 </script>
 

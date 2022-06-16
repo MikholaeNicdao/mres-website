@@ -47,9 +47,13 @@
 <script>
 export default {
     layout: 'about',
+    head(){
+        return{
+            title: "School Staff - Mauaque Resettlement Elementary School"
+        }
+    },
     async mounted(){
         await this.$store.dispatch('faculty/fetchFaculty')
-
     },
     data(){
         return{

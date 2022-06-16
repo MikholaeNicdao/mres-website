@@ -28,10 +28,19 @@
 
 <script>
 import validations from '~/plugins/validations.js'
+import loading from '~/plugins/loading.js'
 
 export default {
-  mixins: [validations],
+  mixins: [validations, loading],
   emits: ['on-submit'],
+  async mounted(){
+    if(this.$route.params?.id){
+      await this.$store.dispatch("activity/fetchTargetActivity", this.$route.params.id)
+      this.setDataResolved()
+      this.assignDefaultValues()
+    }
+    else this.dataResolved = true
+  },
   data(){
     return { 
       form : {
@@ -40,16 +49,7 @@ export default {
         coverPhoto : ""
       },
       coverPhotoPreview: "",
-      dataResolved: false
     }
-  },
-  async mounted(){
-    if(this.$route.params?.id){
-      await this.$store.dispatch("activity/fetchTargetActivity", this.$route.params.id)
-      this.dataResolved = true
-      this.assignDefaultValues()
-    }
-    else this.dataResolved = true
   },
   methods: {
     submitted(){

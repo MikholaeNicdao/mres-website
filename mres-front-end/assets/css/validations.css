@@ -1,0 +1,8 @@
+textarea.incorrectInput,
+input.incorrectInput{
+    border: 1px solid indianred !important;
+}
+span.incorrectInput{
+    margin-left: 0.4rem;
+    color: indianred;
+}

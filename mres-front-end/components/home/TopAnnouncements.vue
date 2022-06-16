@@ -7,7 +7,7 @@
                 <div class="announcementContainer">
                     <div>
                         <h5> {{ announcement.title }}</h5>
-                        <p> {{ announcement.createdAt }} </p>
+                        <p> {{ announcement.formattedCreatedAt }} </p>
                     </div>
                     <nuxt-link :to="'/announcements/' + announcement.id">Read more</nuxt-link>
                 </div>
@@ -42,7 +42,7 @@ export default {
   padding-bottom: 25px;
 }
 .announcement img {
-  height: auto;
+  height: 90px;
   width: 116px;
   object-fit: cover;
 }
@@ -80,7 +80,8 @@ export default {
   margin-top: 20px;
 }
 .announcementSection {
-  display: inline-block;
+  min-height: 500px;
+  background: #f2f2f2;
   width: 65%;
 }
 .announcement a:hover {

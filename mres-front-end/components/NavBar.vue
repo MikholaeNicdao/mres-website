@@ -12,16 +12,16 @@
     <div class="navigation">
       <nav>
         <ul class="links">
-          <li><nuxt-link to="/activities">Activities</nuxt-link></li>
-          <li><nuxt-link to="/announcements">Announcements</nuxt-link></li>
+          <li><nuxt-link to="/activities/page/1">Activities</nuxt-link></li>
+          <li><nuxt-link to="/announcements/page/1">Announcements</nuxt-link></li>
           <li><nuxt-link to="/enrollment">Enrollment</nuxt-link></li>
           <li><a href="#">Services<img class="dropDownBtn" src="~assets/images/dropDownBtn.png"></a>
               <div class="servicesMenu">
                   <ul>
-                      <li><nuxt-link to="/services">Request Education Data</nuxt-link></li>
-                      <li><nuxt-link to="/services">Job Application</nuxt-link></li>
-                      <li><nuxt-link to="/services">Applicaton to Travel Abroad</nuxt-link></li>
-                      <li><nuxt-link to="/services">Application for Leave</nuxt-link></li>
+                      <li><nuxt-link to="/services#bedRequest">Request Education Data</nuxt-link></li>
+                      <li><nuxt-link to="/services#teachingApplication">Job Application</nuxt-link></li>
+                      <li><nuxt-link to="/services#travelApplication">Applicaton to Travel Abroad</nuxt-link></li>
+                      <li><nuxt-link to="/services#leaveApplication">Application for Leave</nuxt-link></li>
                   </ul>
               </div>
           </li>
@@ -31,18 +31,9 @@
                       <li><nuxt-link to="/about/vision_mission">Vision &#38; Mission</nuxt-link></li>
                       <li><nuxt-link to="/about/history">History</nuxt-link></li>
                       <li><nuxt-link to="/about/faculty">Faculty</nuxt-link></li>
-                      <li><a href="#">Continuity Plan</a></li>
+                      <li><nuxt-link to="/about/continuity_plan">Continuity Plan</nuxt-link></li>
                   </ul>
               </div>
-          </li>
-          <li><a href="#">Settings<img class="dropDownBtn" src="~assets/images/dropDownBtn.png"></a>
-            <div class="settingsMenuAdmin">
-              <ul>
-                <li><a href="">Account</a></li>
-                <li><a href="">Create Schedule</a></li>
-                <li><a href="">Logout</a></li>
-              </ul>
-            </div>
           </li>
         </ul>
       </nav>
@@ -97,14 +88,14 @@ nav .links {
 }
 nav .links a {
   display: block;
-  font-size: 18px;
+  font-size: 17px;
   text-decoration: none;
   font-family: sans-serif;
   color: #454545;
 }
 nav .links li {
   list-style: none;
-  margin-left: 20px;
+  margin-left: 30px;
 }
 .links li .servicesMenu{
   display: none;
@@ -148,6 +139,10 @@ img.logo {
   background:#000;
   height:3px;
   margin:4px 0;
+}
+.dropDownBtn {
+    margin-bottom: 2px;
+    margin-left: 6px;
 }
 
 @media (max-width:1160px){

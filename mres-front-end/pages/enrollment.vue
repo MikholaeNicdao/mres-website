@@ -37,7 +37,7 @@
                         1.2. Inform parent/guardian of schedule via SMS of other means 
                     </th>
                     <th>None</th>
-                    <th>20 munites</th>
+                    <th>20 minutes</th>
                     <th>Teacher-In-Charge</th>
                 </tr>
                 <tr>
@@ -110,6 +110,15 @@
         </div>
     </section>
 </template>
+<script>
+export default {
+    head(){
+        return{
+            title: "Enrollment - Mauaque Resettlement Elementary School"
+        }
+    },
+}
+</script>
 
 <style>
 #enrollmentTable th ul {

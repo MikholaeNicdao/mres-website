@@ -1,5 +1,5 @@
 <template>
-  <div class="facultyAdmin">
+  <div class="facultyAdmin box-sized" v-if="dataResolved">
     <div class="facultyHeaderContainer">
         <h3>Organization List</h3>
         <div>
@@ -26,20 +26,30 @@
         </div>
     </div>
   </div>
+  <LoadingDiv v-else />
 </template>
 
 <script>
+import loading from '~/plugins/loading.js'
+
 export default {
     layout: 'adminView',
+    mixins: [loading],
+    head(){
+        return{
+            title: "Faculty[Admin] - Mauaque Resettlement Elementary School"
+        }
+    },
     async mounted(){
         await this.$store.dispatch('faculty/fetchFaculty')
+        this.setDataResolved()
     },
     data(){
         return{
-            categories : [
-              'School Division Officers',  'Non-Teaching Staff', 
-              'Teaching Staff', 'Support Staff'
-            ]
+          categories : [
+            'School Division Officers',  'Non-Teaching Staff', 
+            'Teaching Staff', 'Support Staff'
+          ]
         }
     },
     methods:{
@@ -111,10 +121,12 @@ h4 {
   font-size: 25px;
   color: #404040;
 }
-.facultyAdmin img{
+.facultyContainer img{
+  height: 60px;
+  cursor: pointer;
   width: 60px;
-  height: auto;
-  border-radius: 80px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 .facultyHeaderContainer {
   display: flex;

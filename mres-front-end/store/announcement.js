@@ -1,11 +1,15 @@
 import Vue from 'vue'
 import axios from 'axios'
+import { formatPost } from '../plugins/textformatter.js'
 
 export const state = () => ({
     announcements: [],
     recentAnnouncements: [],
     targetAnnouncement: [],
-    requestedPage: 1
+    pageAnnouncements: [],
+    requestedPage: 1,
+    announcementsPerPage: 8,
+    pageCount: 0
 })
   
 export const mutations = {
@@ -17,28 +21,25 @@ export const mutations = {
     },
     setAnnouncements(state, announcements){
         state.announcements = announcements
+        for (const announcement of state.announcements) 
+            announcement = formatPost(announcement)
     },
     setRecentAnnouncements(state, recents){
         state.recentAnnouncements = recents
+        for (const announcement of state.recentAnnouncements) 
+            announcement = formatPost(announcement)
+    },
+    setPageAnnouncements(state, pageAnnouncements){
+        state.pageAnnouncements = pageAnnouncements
+        for (const announcement of state.pageAnnouncements) 
+            announcement = formatPost(announcement)
     },
     setTargetAnnouncement(state, announcement){
-        state.targetAnnouncement = announcement
+        state.targetAnnouncement = formatPost(announcement)
     },
-    setPage(state, page){
-        state.requestedPage = page
-    },
-    setDateString(state){
-        for(const announcement of state.announcements){
-            const date = new Date(announcement.createdAt)
-            const formattedDate = 
-            `
-                ${date.toLocaleString('default', { month: 'long' })} 
-                ${date.getDate()}, 
-                ${date.getFullYear()}
-            `
-            announcement.createdAt = formattedDate
-        }
-    },
+    setPageCount(state, pageCount){
+        state.pageCount = pageCount
+    }
 }
 
 export const actions = {
@@ -47,7 +48,6 @@ export const actions = {
             const res = await axios.get("http://localhost:3306/api/v1/Announcements")
 
             commit('setAnnouncements', res.data.description)
-            commit('setDateString')
 
         }catch (error) {
             console.log(error)
@@ -58,6 +58,17 @@ export const actions = {
             const res = await axios.get("http://localhost:3306/api/v1/Announcements/" + id)
 
             commit('setTargetAnnouncement', res.data.description[0])
+
+        }catch (error) {
+            console.log(error)
+        }
+    },
+    async fetchPageAnnouncements({ commit }, page){
+        try {
+            const res = await axios.get("http://localhost:3306/api/v1/Announcements/page/" + page)
+
+            commit('setPageAnnouncements', res.data.description)
+            commit('setPageCount', res.data.pageCount)
 
         }catch (error) {
             console.log(error)
@@ -94,10 +105,13 @@ export const actions = {
         }
     },
     // req is an object w/ the following properties
-    //   req.count for number of announcements to fetch
-    //   req.id to exclude the announcement with that id (optional)
-    fetchRecentAnnouncements({ commit, state }, req){
+    // req.count for number of announcements to fetch
+    // req.id to exclude the announcement with that id (optional)
+    async fetchRecentAnnouncements({ commit, dispatch, state }, req){
+        await dispatch('fetchAnnouncements')
+
         const recents = []
+
         for(const announcement of state.announcements){
             if (req?.id){
                 if (announcement.id == req.id) continue
@@ -107,26 +121,5 @@ export const actions = {
         }
 
         commit('setRecentAnnouncements', recents)
-    },
-    setPage({ commit }, page){
-        commit('setPage', page)
-    }
-}
-
-export const getters = {
-    getPageAnnouncements: (state) => {
-        // Subtract 1 to requested page to start from index
-        // of Announcement array
-        const start = (state.requestedPage - 1) * 6
-        const end = state.requestedPage * 6
-        return state.announcements.slice(start, end)
-    },
-    getMaxPageCount: (state) => {
-        // Explanation: Each page has 6 Announcements [a],
-        // If # of [a] divided by 6 has a remainder, add 
-        // 1 extra page for remaining [a]
-        const hasRemainder = state.announcements.length % 6 !== 0
-        const extraPage = (hasRemainder) ? 1 : 0
-        return Math.floor(state.announcements.length/6) + extraPage
     }
 }

@@ -2,15 +2,22 @@
     <client-only>
     <form @submit.prevent="handleSubmit">
         <div class="createFacultyContainer">
-            <button @click="deleteForm" type="button">
+            <button @click="deleteForm" type="button" class="closeButton">
                 <img src="/delete.png">
             </button>
             <div class="facultyDetails">
                 <div class="imageFaculty">
                     <label :for="'facultyImage' + formKey"> 
+                        <img class="addFacultyImage"
+                        :id="'facultyImagePreview'" :src="form.coverPhotoPreview">
+                        <button type="button" class="addFacultyImageButton" @click="openFileExplorer">
+                            Add Image
+                        </button>
+                    </label>
+                    <!-- <label :for="'facultyImage' + formKey"> 
                         <img class="addFacultyImage" 
                         :id="'facultyImagePreview' + formKey" :src="form.coverPhotoPreview">
-                    </label>
+                    </label> -->
                     <input @change="handleFileUpload" 
                     type="file" class="addFacultyField" 
                     :id="'facultyImage' + formKey">
@@ -132,7 +139,10 @@ export default {
             fetch("/addFacultyImage.png")
             .then(response => response.blob())
             .then(data => this.form.coverPhoto = data)
-        }
+        },
+        openFileExplorer(){
+            document.getElementById('facultyImagePreview').click();
+        },
     },
     computed: {
         showPositionField(){
@@ -193,6 +203,20 @@ img.addFacultyImage {
   object-fit: cover;
   height: 100px;
 }
+button.addFacultyImageButton{
+    background: silver;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: none;
+    color: #404040;
+    margin-top: 7px;
+    width: 100%;
+}
+
+button.addFacultyImageButton:hover{
+    background: gray;
+    color: white;
+}
 
 .nameFaculty table, .positionFaculty table {
   margin-top: 5px;}
@@ -229,12 +253,12 @@ select#facultyPosition,
   overflow: auto;
   text-align: left;}
 
-.createFacultyContainer button {
+button.closeButton {
   height: 34px;
   border: none;
   background: no-repeat;
   margin: 20px;}
 
-.createFacultyContainer button img {
+button.closeButton img {
   width: 30px;}
 </style>
