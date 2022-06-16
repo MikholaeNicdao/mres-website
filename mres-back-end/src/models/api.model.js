@@ -132,7 +132,7 @@ class mresQuery{
 
     static async getByPageAnnouncements(page, result){
         const startRow = +page === 1 ? 0 : (page - 1)  * this.postCount
-        dbconnect.query('SELECT * FROM announcements LIMIT ?, ?', [startRow, this.postCount], (err,res)=>{
+        dbconnect.query('SELECT * FROM announcements ORDER BY createdAt DESC LIMIT ?, ?', [startRow, this.postCount], (err,res)=>{
             if(err){
                 result(null, err)
             }else{
