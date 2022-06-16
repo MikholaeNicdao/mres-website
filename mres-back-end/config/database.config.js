@@ -1,6 +1,7 @@
 'use strict'
 
 const mysql2 = require('mysql2')
+
 require('dotenv').config()
  
 const dbconnect = mysql2.createConnection({

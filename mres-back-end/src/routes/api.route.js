@@ -13,15 +13,18 @@ router.post('/create/admin/account', apiController.createAdmin)
 router.post('/login/admin', apiController.loginAdmin)
 
 // GET routers for static page
-router.get('/', apiController.getSchedule)
+router.get('/Events', apiController.getSchedule)
 router.get('/Faculty', apiController.getAllFaculty)
 router.get('/SchoolActivities', apiController.getAllSchoolActivities)
 router.get('/SchoolActivities/:id', apiController.getByIdSA)
+router.get('/SchoolActivities/page/:page', apiController.getByPageSA)
 router.get('/Announcements', apiController.getAllSchoolAnnouncements)
 router.get('/Announcements/:id', apiController.getByIdAnnouncements)
+router.get('/Announcements/page/:page', apiController.getByPageAnnouncements)
 router.get('/LearningContinuityPlan', apiController.getAllLCP)
 
 // ADMIN POST API's
+router.post('/Events/add', apiController.scheduleUpload)
 router.post('/Faculty/add/member', upload.single('coverPhoto'), apiController.addFacultyMember)
 router.post('/SchoolActivities/add', upload.single('coverPhoto'), apiController.schoolActivitiesUpload)
 router.post('/Announcements/add', upload.single('coverPhoto'), apiController.announcementsUpload)

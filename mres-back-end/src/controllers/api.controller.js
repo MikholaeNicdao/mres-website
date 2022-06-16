@@ -4,6 +4,7 @@ const apiModel = require('../models/api.model')
 const bcrypt = require('bcrypt')
 const { json } = require('body-parser')
 
+
 // Create admin account
 exports.createAdmin = async (req,res)=>{
     let userName = req.body.userName
@@ -86,6 +87,17 @@ exports.getByIdSA = (req,res)=>{
     })
 }
 
+exports.getByPageSA = async (req,res)=>{
+    const pageCount = await apiModel.getTableLength('schoolactivities')
+    apiModel.getByPageSA(req.params.page, (err,data)=>{
+        if(err){
+            res.status(404).json({success: false, description: data})
+        }else{
+            res.status(200).json({success: true, description: data, pageCount })
+        }
+    })
+}
+
 exports.getAllSchoolAnnouncements = (req,res)=>{
     apiModel.getAllAnnouncements((err,data)=>{
         if(err){
@@ -106,6 +118,17 @@ exports.getByIdAnnouncements = (req,res)=>{
     })
 }
 
+exports.getByPageAnnouncements = async (req,res)=>{
+    const pageCount = await apiModel.getTableLength('announcements')
+    apiModel.getByPageAnnouncements(req.params.page, (err,data)=>{
+        if(err){
+            res.status(404).json({ success: false, description: data })
+        }else{
+            res.status(200).json({ success: true, description: data, pageCount })
+        }
+    })
+}
+
 exports.getAllLCP = (req,res)=>{
     apiModel.getAllLCP((err,data)=>{
         if(err){
@@ -118,7 +141,12 @@ exports.getAllLCP = (req,res)=>{
 
 // Sending Data and File Uploading
 exports.scheduleUpload = (req,res)=>{
-    apiModel.scheduleUpload(req.body.schedule, (err,result)=>{
+    let title = req.body.title
+    let description = req.body.description
+    let location = req.body.location
+    let date = req.body.date
+    let time = req.body.time
+    apiModel.scheduleUpload(title, description, location, date, time, (err,result)=>{
         if(err){
             res.status(404).json({success: false, description: result})
         }else{
@@ -177,9 +205,10 @@ exports.announcementsUpload = (req,res)=>{
 }
 
 exports.LCPUpload = (req,res)=>{
+    let page = req.body.page
     let image = req.file.buffer.toString('base64')
 
-    apiModel.LCPUpload(image,(err,result)=>{
+    apiModel.LCPUpload(image, page, (err,result)=>{
         if(err){
             res.status(404).json({success: false, description: result})
         }else{
@@ -230,7 +259,10 @@ exports.removeAnnouncementsById = (req,res)=>{
     })
 }
 
-exports.removeLCPById = (req,res)=>{
+exports.removeLCPById = async (req,res) => {
+    // let page = await apiModel.getLCPPageByID(req.params.id)
+    await apiModel.adjustLCPPageNumbers(req.params.id)
+
     apiModel.removeLCPById(req.params.id, (err, result)=>{
         if(err){
             res.status(404).json({success: false, description: result})
@@ -274,8 +306,9 @@ exports.updateAnnouncements = (req,res)=>{
 
 exports.updateLCP = (req,res)=>{
     let image = req.file.buffer.toString('base64')
+    let page = req.body.page
 
-    apiModel.updateAnnouncements(image,req.params.id,(err,result)=>{
+    apiModel.updateLCP(image, page, req.params.id,(err,result)=>{
         if(err){
             res.status(404).json({success: false, description: result})
         }else{
